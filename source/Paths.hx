@@ -115,6 +115,11 @@ class Paths
 		return 'songs:assets/songs/${songLowercase}/Inst.$SOUND_EXT';
 	}
 
+	inline static public function lowhpmusic(song:String)
+		{
+			return 'songs:assets/songs/${song.toLowerCase()}/InstLowHP.$SOUND_EXT';
+		}
+
 	inline static public function image(key:String, ?library:String)
 	{
 		return getPath('images/$key.png', IMAGE, library);
