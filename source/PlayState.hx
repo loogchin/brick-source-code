@@ -114,7 +114,6 @@ class PlayState extends MusicBeatState
 	#end
 
 	private var vocals:FlxSound;
-	private var lowhpmusic:FlxSound;
 
 	public var originalX:Float;
 
@@ -1472,7 +1471,6 @@ class PlayState extends MusicBeatState
 
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
-		lowhpmusic.play();
 
 
 		// Song duration in a float, useful for the time left feature
@@ -1545,9 +1543,6 @@ class PlayState extends MusicBeatState
 		trace('loaded vocals');
 
 		FlxG.sound.list.add(vocals);
-
-		lowhpmusic = new FlxSound().loadEmbedded(Paths.lowhpmusic(PlayState.SONG.song));
-		FlxG.sound.list.add(lowhpmusic);
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -1839,7 +1834,6 @@ class PlayState extends MusicBeatState
 			{
 				FlxG.sound.music.pause();
 				vocals.pause();
-				lowhpmusic.pause();
 			}
 
 			#if windows
@@ -1859,7 +1853,6 @@ class PlayState extends MusicBeatState
 			if (FlxG.sound.music != null && !startingSong)
 			{
 				resyncVocals();
-				resyncLowhpmusic();
 			}
 
 			if (!startTimer.finished)
@@ -1895,14 +1888,6 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsText + " " + SONG.song + " (" + storyDifficultyText + ") " + Ratings.GenerateLetterRank(accuracy), "\nAcc: " + HelperFunctions.truncateFloat(accuracy, 2) + "% | Score: " + songScore + " | Misses: " + misses  , iconRPC);
 		#end
 	}
-
-	function resyncLowhpmusic():Void
-		{
-			lowhpmusic.pause();
-	
-			lowhpmusic.time = Conductor.songPosition;
-			lowhpmusic.play();
-		}
 
 	private var paused:Bool = false;
 	var startedCountdown:Bool = false;
@@ -2120,12 +2105,10 @@ class PlayState extends MusicBeatState
 					if (health <= 1)
 						{
 						FlxG.sound.music.volume = health;
-						lowhpmusic.volume = 1 - health;
 						}
 					else
 						{
 						FlxG.sound.music.volume = 1;
-						lowhpmusic.volume = 0;
 						}
 	
 					var chromeOffset:Float = ((2 - ((health / 0.5))));
@@ -2139,7 +2122,6 @@ class PlayState extends MusicBeatState
 				}
 	
 			trace(FlxG.sound.music.volume);
-			trace(lowhpmusic.volume);
 
 			#if debug
 			if (FlxG.keys.pressed.N)
@@ -2448,7 +2430,6 @@ class PlayState extends MusicBeatState
 
 			vocals.stop();
 			FlxG.sound.music.stop();
-			lowhpmusic.stop();
 
 			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
@@ -3926,11 +3907,44 @@ class PlayState extends MusicBeatState
 
 	override function stepHit()
 	{
+		if (curSong == 'brick')
+		{
+			switch (curStep) 
+			{
+				case 316:
+					defaultCamZoom = 1.3;
+				case 320:
+					defaultCamZoom = 0.7;
+				case 380:
+					defaultCamZoom = 1.3;
+				case 383:
+					defaultCamZoom = 0.7;
+				case 700:
+					defaultCamZoom = 1.5;
+				case 704:
+					defaultCamZoom = 0.7;
+				case 763:
+					defaultCamZoom = 1.55;
+				case 768:
+					defaultCamZoom = 1.4;
+				case 784:
+					defaultCamZoom = 0.7;
+				case 965:
+					defaultCamZoom = 1.8;
+			}
+			if ((curStep >= 768) && (curStep <= 784))
+				{
+					camHUD.shake(0.0055, 0.15);
+				}
+			if ((curStep >= 800) && (curStep <= 816))
+				{
+					camHUD.shake(0.0055, 0.15);
+				}
+		}
 		super.stepHit();
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
 			resyncVocals();
-			resyncLowhpmusic();
 		}
 
 		#if windows
