@@ -122,15 +122,13 @@ class MainMenuState extends MusicBeatState
 			menuItems.add(menuItem);
 			menuItem.scrollFactor.set();
 			menuItem.antialiasing = true;
-			if (firstStart)
+			if (firstStart == true)
 				FlxTween.tween(menuItem,{y: 150 + (i * 160)},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
 					{ 
 						finishedFunnyMove = true; 
 						changeItem();
 					}});
 		}
-
-		firstStart = false;
 
 		var brickSpeen = new FlxSprite(-150, -100);
 		brickSpeen.frames = Paths.getSparrowAtlas('menushit/brickmenu');
@@ -229,10 +227,6 @@ class MainMenuState extends MusicBeatState
 						{
 							FlxTween.tween(spr, {alpha: 0}, 1.3, {
 								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
-									spr.kill();
-								}
 							});
 						}
 						else
