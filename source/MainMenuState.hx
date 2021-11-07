@@ -29,7 +29,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
 	#if !switch
-	var optionShit:Array<String> = ['story mode', 'freeplay', 'donate', 'options'];
+	var optionShit:Array<String> = ['story mode', 'freeplay', 'options'];
 	#else
 	var optionShit:Array<String> = ['story mode', 'freeplay'];
 	#end
@@ -70,6 +70,24 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = true;
 		add(bg);
 
+		var sky:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('menushit/sky'));
+		sky.scrollFactor.x = 0;
+		sky.scrollFactor.y = 0.10;
+		sky.setGraphicSize(Std.int(bg.width * 1.1));
+		sky.updateHitbox();
+		sky.screenCenter();
+		sky.antialiasing = true;
+		add(sky);
+
+		var ground:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('menushit/ground'));
+		ground.scrollFactor.x = 0;
+		ground.scrollFactor.y = 0.10;
+		ground.setGraphicSize(Std.int(bg.width * 1.1));
+		ground.updateHitbox();
+		ground.screenCenter();
+		ground.antialiasing = true;
+		add(ground);
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 
@@ -98,21 +116,34 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			menuItem.x += 5;
+			menuItem.y += 100;
+			menuItem.scale.set(0.9, 0.9);
 			menuItems.add(menuItem);
 			menuItem.scrollFactor.set();
 			menuItem.antialiasing = true;
 			if (firstStart)
-				FlxTween.tween(menuItem,{y: 60 + (i * 160)},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
+				FlxTween.tween(menuItem,{y: 150 + (i * 160)},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
 					{ 
 						finishedFunnyMove = true; 
 						changeItem();
 					}});
-			else
-				menuItem.y = 60 + (i * 160);
 		}
 
 		firstStart = false;
+
+		var brickSpeen = new FlxSprite(-150, -100);
+		brickSpeen.frames = Paths.getSparrowAtlas('menushit/brickmenu');
+		brickSpeen.scrollFactor.x = 0;
+		brickSpeen.scrollFactor.y = 0;
+		brickSpeen.x += 400;
+		brickSpeen.y += 75;
+		brickSpeen.antialiasing = true;
+		brickSpeen.animation.addByPrefix('speen', 'brick', 24);
+		brickSpeen.animation.play('speen');
+		brickSpeen.updateHitbox();
+		add(brickSpeen);
+		brickSpeen.scale.set(0.85, 0.85);
 
 		FlxG.camera.follow(camFollow, null, 0.60 * (60 / FlxG.save.data.fpsCap));
 
@@ -230,7 +261,7 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.screenCenter(X);
+
 		});
 	}
 	
