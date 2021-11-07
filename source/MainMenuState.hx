@@ -70,21 +70,21 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = true;
 		add(bg);
 
-		var sky:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('menushit/sky'));
+		var sky:FlxSprite = new FlxSprite(-100, -50).loadGraphic(Paths.image('menushit/sky'));
 		sky.scrollFactor.x = 0;
 		sky.scrollFactor.y = 0.10;
 		sky.setGraphicSize(Std.int(bg.width * 1.1));
 		sky.updateHitbox();
-		sky.screenCenter();
+		sky.screenCenter(X);
 		sky.antialiasing = true;
 		add(sky);
 
-		var ground:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('menushit/ground'));
+		var ground:FlxSprite = new FlxSprite(-100, 500).loadGraphic(Paths.image('menushit/ground'));
 		ground.scrollFactor.x = 0;
 		ground.scrollFactor.y = 0.10;
 		ground.setGraphicSize(Std.int(bg.width * 1.1));
 		ground.updateHitbox();
-		ground.screenCenter();
+		ground.screenCenter(X);
 		ground.antialiasing = true;
 		add(ground);
 
@@ -219,7 +219,6 @@ class MainMenuState extends MusicBeatState
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 					
 					if (FlxG.save.data.flashing)
-						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
