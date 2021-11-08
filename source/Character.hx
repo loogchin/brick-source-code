@@ -43,6 +43,19 @@ class Character extends FlxSprite
 
 				playAnim('idle');
 
+			case 'madbrick':
+				// the holy brick
+				// the holy brick
+				// the holy brick
+				// the holy brick
+				// the holy brick
+				tex = Paths.getSparrowAtlas('brick/killfully/brickin');
+				frames = tex;
+				animation.addByPrefix('idle', 'brick', 24);
+				addOffset('idle');
+	
+				playAnim('idle');
+
 			case 'gf':
 				// GIRLFRIEND CODE
 				tex = Paths.getSparrowAtlas('characters/GF_assets');

@@ -730,6 +730,19 @@ class PlayState extends MusicBeatState
 						ground.active = false;
 						add(ground);
 				}
+
+				case 'killfully':
+					{
+							defaultCamZoom = 0.68;
+							curStage = 'killfully';
+							var killfully:FlxSprite = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/killfully/bg'));
+							killfully.setGraphicSize(Std.int(killfully.width * 1.5));
+							killfully.antialiasing = true;
+							killfully.scrollFactor.set(1, 1);
+							killfully.active = false;
+							add(killfully);
+					}
+
 			case 'stage':
 				{
 						defaultCamZoom = 0.9;
@@ -812,7 +825,7 @@ class PlayState extends MusicBeatState
 		}
 		
 		gf = new Character(400, 130, curGf);
-		gf.scrollFactor.set(0.95, 0.95);
+		gf.scrollFactor.set(1, 1);
 
 		dad = new Character(100, 100, SONG.player2);
 
@@ -857,6 +870,9 @@ class PlayState extends MusicBeatState
 			case 'brick':
 				dad.x -= 733.4;
 				dad.y -= 176.75;
+			case 'madbrick':
+				dad.x -= 733.4;
+				dad.y -= 176.75;
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -898,6 +914,20 @@ class PlayState extends MusicBeatState
 				boyfriend.y += 220;
 				gf.x += 180;
 				gf.y += 300;
+			case 'killfully':
+				boyfriend.x += 235;
+				boyfriend.y -= 260;
+				gf.x -= 20;
+				gf.y -= 300;
+
+				if(FlxG.save.data.distractions){
+					// trailArea.scrollFactor.set();
+					var yourmother = new FlxTrail(dad, null, 4, 24, 0.3, 0.069);
+					// yourmother.changeValuesEnabled(false, false, false, false);
+					// yourmother.changeGraphic()
+					add(yourmother);
+					// yourmother.scrollFactor.set(1.1, 1.1);
+					}
 		}
 
 		if (!PlayStateChangeables.Optimize)
@@ -2340,6 +2370,9 @@ class PlayState extends MusicBeatState
 					case 'brick':
 						camFollow.y = dad.getMidpoint().y + 200;
 						camFollow.x = dad.getMidpoint().x + 235;
+					case 'madbrick':
+						camFollow.y = dad.getMidpoint().y + 21;
+						camFollow.x = dad.getMidpoint().x + 300;
 				}
 
 				if (dad.curCharacter == 'mom')
@@ -2357,7 +2390,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 100 + offsetY);
+				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 110 + offsetY);
 
 				#if windows
 				if (luaModchart != null)
@@ -3941,6 +3974,35 @@ class PlayState extends MusicBeatState
 					camHUD.shake(0.0055, 0.15);
 				}
 		}
+
+		if (curSong == 'kill-issue')
+			{
+				switch (curStep) 
+				{
+					case 29:
+						defaultCamZoom = 0.8;
+					case 32:
+						defaultCamZoom = 0.68;
+					case 91:
+						defaultCamZoom = 0.8;
+					case 96:
+						defaultCamZoom = 0.68;
+					case 155:
+						defaultCamZoom = 0.8;
+					case 159:
+						defaultCamZoom = 0.68;
+					case 219:
+						defaultCamZoom = 0.8;
+					case 223:
+						defaultCamZoom = 0.68;
+					case 779:
+						defaultCamZoom = 0.9;
+						FlxG.sound.play(Paths.sound('vineboom'));
+					case 783:
+						defaultCamZoom = 0.68;
+				}
+			}
+
 		super.stepHit();
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
