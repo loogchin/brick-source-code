@@ -3980,23 +3980,23 @@ class PlayState extends MusicBeatState
 				switch (curStep) 
 				{
 					case 29:
-						defaultCamZoom = 0.8;
+						defaultCamZoom = 1;
 					case 32:
 						defaultCamZoom = 0.68;
 					case 91:
-						defaultCamZoom = 0.8;
+						defaultCamZoom = 1;
 					case 96:
 						defaultCamZoom = 0.68;
 					case 155:
-						defaultCamZoom = 0.8;
+						defaultCamZoom = 1;
 					case 159:
 						defaultCamZoom = 0.68;
 					case 219:
-						defaultCamZoom = 0.8;
+						defaultCamZoom = 1;
 					case 223:
 						defaultCamZoom = 0.68;
-					case 779:
-						defaultCamZoom = 0.9;
+					case 780:
+						defaultCamZoom = 1.3;
 						FlxG.sound.play(Paths.sound('vineboom'));
 					case 783:
 						defaultCamZoom = 0.68;

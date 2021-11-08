@@ -363,6 +363,27 @@ class TitleState extends MusicBeatState
 		}
 	}
 
+	function createCoolerText(textArray:Array<String>)
+		{
+			for (i in 0...textArray.length)
+			{
+				var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false);
+				money.screenCenter(X);
+				money.y += (i * 60) + 100;
+				credGroup.add(money);
+				textGroup.add(money);
+			}
+		}
+
+		function addEvenMoreText(text:String)
+			{
+				var coolText:Alphabet = new Alphabet(0, 0, text, true, false);
+				coolText.screenCenter(X);
+				coolText.y += (textGroup.length * 60) + 100;
+				credGroup.add(coolText);
+				textGroup.add(coolText);
+			}
+		
 	function addMoreText(text:String)
 	{
 		var coolText:Alphabet = new Alphabet(0, 0, text, true, false);
@@ -398,10 +419,10 @@ class TitleState extends MusicBeatState
 		switch (curBeat)
 		{
 			case 1:
-				createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
+				createCoolerText(['Ekical', 'Jacks', 'Netamaru', 'salty sovet', 'vidz', 'cyberbyte', 'chromasen']);
 			// credTextShit.visible = true;
 			case 3:
-				addMoreText('present');
+				addEvenMoreText('present');
 			// credTextShit.text += '\npresent...';
 			// credTextShit.addText();
 			case 4:
@@ -411,12 +432,12 @@ class TitleState extends MusicBeatState
 			// credTextShit.screenCenter();
 			case 5:
 				if (Main.watermarks)
-					createCoolText(['Kade Engine', 'by']);
+					createCoolText(['brick mod', '']);
 				else
 					createCoolText(['In Partnership', 'with']);
 			case 7:
 				if (Main.watermarks)
-					addMoreText('KadeDeveloper');
+					addMoreText('very funny!!!');
 				else
 				{
 					addMoreText('Newgrounds');
