@@ -109,7 +109,7 @@ class StoryMenuState extends MusicBeatState
 		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
-		add(grpWeekText);
+		//add(grpWeekText);
 
 		grpLocks = new FlxTypedGroup<FlxSprite>();
 		add(grpLocks);
@@ -181,9 +181,9 @@ class StoryMenuState extends MusicBeatState
 		txtTracklist.alignment = CENTER;
 		txtTracklist.font = rankText.font;
 		txtTracklist.color = 0xFFe55777;
-		add(txtTracklist);
+		//add(txtTracklist);
 		// add(rankText);
-		add(scoreText);
+		//add(scoreText);
 		add(txtWeekTitle);
 
 		updateText();
