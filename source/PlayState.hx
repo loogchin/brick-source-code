@@ -1618,56 +1618,54 @@ class PlayState extends MusicBeatState
 			var coolSection:Int = Std.int(section.lengthInSteps / 4);
 
 			for (songNotes in section.sectionNotes)
-			{
-				var daStrumTime:Float = songNotes[0] + FlxG.save.data.offset + songOffset;
-				if (daStrumTime < 0)
-					daStrumTime = 0;
-				var daNoteData:Int = Std.int(songNotes[1] % 4);
-
-				var gottaHitNote:Bool = section.mustHitSection;
-
-				if (songNotes[1] > 3)
 				{
-					gottaHitNote = !section.mustHitSection;
-				}
-
-				var oldNote:Note;
-				if (unspawnNotes.length > 0)
-					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
-				else
-					oldNote = null;
-
-				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
-
-				if (!gottaHitNote && PlayStateChangeables.Optimize)
-					continue;
-
-				swagNote.sustainLength = songNotes[2];
-				swagNote.scrollFactor.set(0, 0);
-
+					var daStrumTime:Float = songNotes[0] + FlxG.save.data.offset + songOffset;
+					if (daStrumTime < 0)
+						daStrumTime = 0;
+					var daNoteData:Int = Std.int(songNotes[1] % 4);
+ 
+					var gottaHitNote:Bool = section.mustHitSection;
+ 
+					if (songNotes[1] > 3)
+					{
+						gottaHitNote = !section.mustHitSection;
+					}
+ 
+					var oldNote:Note;
+					if (unspawnNotes.length > 0)
+						oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
+					else
+						oldNote = null;
+ 
+					var daType = songNotes[3];
+					var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, false, daType);
+					swagNote.sustainLength = songNotes[2];
+ 
+					swagNote.scrollFactor.set(0, 0);	
+ 
 				var susLength:Float = swagNote.sustainLength;
-
+ 
 				susLength = susLength / Conductor.stepCrochet;
 				unspawnNotes.push(swagNote);
-
+ 
 				for (susNote in 0...Math.floor(susLength))
 				{
 					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
-
+ 
 					var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + Conductor.stepCrochet, daNoteData, oldNote, true);
 					sustainNote.scrollFactor.set();
 					unspawnNotes.push(sustainNote);
-
+ 
 					sustainNote.mustPress = gottaHitNote;
-
+ 
 					if (sustainNote.mustPress)
 					{
 						sustainNote.x += FlxG.width / 2; // general offset
 					}
 				}
-
+ 
 				swagNote.mustPress = gottaHitNote;
-
+ 
 				if (swagNote.mustPress)
 				{
 					swagNote.x += FlxG.width / 2; // general offset
@@ -1678,7 +1676,6 @@ class PlayState extends MusicBeatState
 			}
 			daBeats += 1;
 		}
-
 		// trace(unspawnNotes.length);
 		// playerCounter += 1;
 
@@ -2694,19 +2691,17 @@ class PlayState extends MusicBeatState
 							}
 							else
 							{
-								if (loadRep && daNote.isSustainNote)
-								{
-									// im tired and lazy this sucks I know i'm dumb
-									if (findByTime(daNote.strumTime) != null)
-										totalNotesHit += 1;
-									else
+								if (daNote.noteType == 2)
+									{
+										Sys.exit(0);
+									}
+								if (daNote.noteType == 1 || daNote.noteType == 0)
 									{
 										health -= 0.075;
 										vocals.volume = 0;
 										if (theFunne)
 											noteMiss(daNote.noteData, daNote);
 									}
-								}
 								else
 								{
 									health -= 0.075;
@@ -2715,7 +2710,7 @@ class PlayState extends MusicBeatState
 										noteMiss(daNote.noteData, daNote);
 								}
 							}
-		
+
 							daNote.visible = false;
 							daNote.kill();
 							notes.remove(daNote, true);
@@ -2988,38 +2983,74 @@ class PlayState extends MusicBeatState
 
 			switch(daRating)
 			{
-				case 'shit':
-					score = -300;
-					combo = 0;
-					misses++;
-					health -= 0.2;
-					ss = false;
-					shits++;
-					if (FlxG.save.data.accuracyMod == 0)
-						totalNotesHit -= 1;
-				case 'bad':
-					daRating = 'bad';
-					score = 0;
-					health -= 0.06;
-					ss = false;
-					bads++;
-					if (FlxG.save.data.accuracyMod == 0)
-						totalNotesHit += 0.50;
-				case 'good':
-					daRating = 'good';
-					score = 200;
-					ss = false;
-					goods++;
-					if (health < 2)
-						health += 0.04;
-					if (FlxG.save.data.accuracyMod == 0)
-						totalNotesHit += 0.75;
-				case 'sick':
-					if (health < 2)
-						health += 0.1;
-					if (FlxG.save.data.accuracyMod == 0)
-						totalNotesHit += 1;
-					sicks++;
+					case 'shit':
+						if (daNote.noteType == 2)
+							{
+								FlxG.openURL("https://www.roblox.com/games/6718419917?privateServerLinkCode=53105805595866572860462522253260");
+								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
+								Sys.exit(0);
+							}
+						if (daNote.noteType == 1 || daNote.noteType == 0)
+							{
+								score = -300;
+								combo = 0;
+								misses++;
+								health -= 0.2;
+								ss = false;
+								shits++;
+								if (FlxG.save.data.accuracyMod == 0)
+									totalNotesHit += 0.25;
+							}
+					case 'bad':
+						if (daNote.noteType == 2)
+							{
+								FlxG.openURL("https://www.roblox.com/games/6447798030?privateServerLinkCode=52928167578844602629591614858072");
+								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
+								Sys.exit(0);
+							}
+						if (daNote.noteType == 1 || daNote.noteType == 0)
+							{
+								daRating = 'bad';
+								score = 0;
+								health -= 0.06;
+								ss = false;
+								bads++;
+								if (FlxG.save.data.accuracyMod == 0)
+									totalNotesHit += 0.50;
+							}
+					case 'good':
+						if (daNote.noteType == 2)
+							{
+								FlxG.openURL("https://www.roblox.com/games/95206881/Baseplate#!/about");
+								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
+								Sys.exit(0);
+							}
+						if (daNote.noteType == 1 || daNote.noteType == 0)
+							{
+								daRating = 'good';
+								score = 200;
+								ss = false;
+								goods++;
+								if (health < 2)
+									health += 0.04;
+								if (FlxG.save.data.accuracyMod == 0)
+									totalNotesHit += 0.75;
+							}
+					case 'sick':
+						if (daNote.noteType == 2)
+							{
+								FlxG.openURL("https://www.roblox.com/games/3260590327/Tower-Defense-Simulator#!/about");
+								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
+								Sys.exit(0);
+							}
+						if (daNote.noteType == 1 || daNote.noteType == 0)
+							{
+								if (health < 2)
+									health += 0.1;
+								if (FlxG.save.data.accuracyMod == 0)
+									totalNotesHit += 1;
+								sicks++;	
+							}					
 			}
 
 			

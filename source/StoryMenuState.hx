@@ -70,6 +70,7 @@ class StoryMenuState extends MusicBeatState
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		}
 
+
 		var page:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('yomom/page'));
 		page.scrollFactor.x = 0;
 		page.scrollFactor.y = 0;
@@ -89,6 +90,17 @@ class StoryMenuState extends MusicBeatState
 		bgthingy.screenCenter();
 		bgthingy.antialiasing = true;
 		add(bgthingy);
+
+		var brickSpeen = new FlxSprite(-315, -100);
+		brickSpeen.frames = Paths.getSparrowAtlas('brick/brickin','shared');
+		brickSpeen.scrollFactor.x = 0;
+		brickSpeen.scrollFactor.y = 0;
+		brickSpeen.antialiasing = true;
+		brickSpeen.animation.addByPrefix('speen', 'brick', 24);
+		brickSpeen.animation.play('speen');
+		brickSpeen.updateHitbox();
+		add(brickSpeen);
+		brickSpeen.scale.set(0.85, 0.85);
 
 		persistentUpdate = persistentDraw = true;
 
@@ -147,7 +159,7 @@ class StoryMenuState extends MusicBeatState
 
 		trace("Line 124");
 
-		leftArrow = new FlxSprite(grpWeekText.members[0].x + grpWeekText.members[0].width + 10, grpWeekText.members[0].y + 10);
+		leftArrow = new FlxSprite(grpWeekText.members[0].x + grpWeekText.members[0].width + 5, grpWeekText.members[0].y + 10);
 		leftArrow.frames = ui_tex;
 		leftArrow.y -= 115;
 		leftArrow.animation.addByPrefix('idle', "arrow left");
@@ -155,7 +167,7 @@ class StoryMenuState extends MusicBeatState
 		leftArrow.animation.play('idle');
 		difficultySelectors.add(leftArrow);
 
-		sprDifficulty = new FlxSprite(leftArrow.x + 130, leftArrow.y);
+		sprDifficulty = new FlxSprite(leftArrow.x + 120, leftArrow.y);
 		sprDifficulty.frames = ui_tex;
 		sprDifficulty.y -= 500;
 		sprDifficulty.animation.addByPrefix('easy', 'EASY');
@@ -167,7 +179,7 @@ class StoryMenuState extends MusicBeatState
 
 		difficultySelectors.add(sprDifficulty);
 
-		rightArrow = new FlxSprite(sprDifficulty.x + sprDifficulty.width + 50, leftArrow.y);
+		rightArrow = new FlxSprite(sprDifficulty.x + sprDifficulty.width + 40, leftArrow.y);
 		rightArrow.frames = ui_tex;
 		rightArrow.y -= 0;
 		rightArrow.animation.addByPrefix('idle', 'arrow right');
@@ -370,7 +382,7 @@ class StoryMenuState extends MusicBeatState
 		sprDifficulty.alpha = 0;
 
 		// USING THESE WEIRD VALUES SO THAT IT DOESNT FLOAT UP
-		sprDifficulty.y = leftArrow.y - 15;
+		sprDifficulty.y = leftArrow.y - 10;
 		intendedScore = Highscore.getWeekScore(curWeek, curDifficulty);
 
 		#if !switch

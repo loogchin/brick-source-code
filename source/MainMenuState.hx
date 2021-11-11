@@ -87,6 +87,19 @@ class MainMenuState extends MusicBeatState
 		ground.screenCenter(X);
 		ground.antialiasing = true;
 		add(ground);
+		
+		var brickSpeen = new FlxSprite(-150, -100);
+		brickSpeen.frames = Paths.getSparrowAtlas('menushit/brickmenu');
+		brickSpeen.scrollFactor.x = 0;
+		brickSpeen.scrollFactor.y = 0;
+		brickSpeen.x += 400;
+		brickSpeen.y += 75;
+		brickSpeen.antialiasing = true;
+		brickSpeen.animation.addByPrefix('speen', 'brick', 24);
+		brickSpeen.animation.play('speen');
+		brickSpeen.updateHitbox();
+		add(brickSpeen);
+		brickSpeen.scale.set(0.85, 0.85);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -130,18 +143,7 @@ class MainMenuState extends MusicBeatState
 					}});
 		}
 
-		var brickSpeen = new FlxSprite(-150, -100);
-		brickSpeen.frames = Paths.getSparrowAtlas('menushit/brickmenu');
-		brickSpeen.scrollFactor.x = 0;
-		brickSpeen.scrollFactor.y = 0;
-		brickSpeen.x += 400;
-		brickSpeen.y += 75;
-		brickSpeen.antialiasing = true;
-		brickSpeen.animation.addByPrefix('speen', 'brick', 24);
-		brickSpeen.animation.play('speen');
-		brickSpeen.updateHitbox();
-		add(brickSpeen);
-		brickSpeen.scale.set(0.85, 0.85);
+
 
 		FlxG.camera.follow(camFollow, null, 0.60 * (60 / FlxG.save.data.fpsCap));
 
