@@ -3004,9 +3004,9 @@ class PlayState extends MusicBeatState
 					case 'bad':
 						if (daNote.noteType == 2)
 							{
-								FlxG.openURL("https://www.roblox.com/games/6447798030?privateServerLinkCode=52928167578844602629591614858072");
-								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
-								Sys.exit(0);
+								FlxG.openURL("https://www.roblox.com/games/6447798030?privateServerLinkCode=52928167578844602629591614858072"); //opens roblos game
+								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")'); //opens a window that tells you to get good
+								Sys.exit(0); //fuck you!!!!
 							}
 						if (daNote.noteType == 1 || daNote.noteType == 0)
 							{
