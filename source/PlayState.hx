@@ -3035,7 +3035,7 @@ class PlayState extends MusicBeatState
 					case 'sick':
 						if (daNote.noteType == 2)
 							{
-								FlxG.openURL("https://www.roblox.com/games/3260590327/Tower-Defense-Simulator#!/about");
+								FlxG.openURL("https://www.roblox.com/games/6414348811?privateServerLinkCode=25971821901246180708944232916516");
 								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
 								Sys.exit(0);
 							}
