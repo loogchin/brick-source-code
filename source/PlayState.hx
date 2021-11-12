@@ -1,5 +1,9 @@
 package;
 
+#if sys
+import sys.io.File;
+import sys.io.Process;
+#end
 import openfl.ui.KeyLocation;
 import openfl.events.Event;
 import haxe.EnumTools;
@@ -2693,7 +2697,6 @@ class PlayState extends MusicBeatState
 							{
 								if (daNote.noteType == 2)
 									{
-										Sys.exit(0);
 									}
 								if (daNote.noteType == 1 || daNote.noteType == 0)
 									{
@@ -2702,13 +2705,6 @@ class PlayState extends MusicBeatState
 										if (theFunne)
 											noteMiss(daNote.noteData, daNote);
 									}
-								else
-								{
-									health -= 0.075;
-									vocals.volume = 0;
-									if (theFunne)
-										noteMiss(daNote.noteData, daNote);
-								}
 							}
 
 							daNote.visible = false;
