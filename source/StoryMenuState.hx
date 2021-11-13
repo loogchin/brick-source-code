@@ -91,6 +91,16 @@ class StoryMenuState extends MusicBeatState
 		bgthingy.antialiasing = true;
 		add(bgthingy);
 
+		var daButton:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('yomom/daButton'));
+		daButton.scrollFactor.x = 0;
+		daButton.scrollFactor.y = 0;
+		daButton.setGraphicSize(Std.int(daButton.width * 1.1));
+		daButton.scale.set(1, 1);
+		daButton.updateHitbox();
+		daButton.screenCenter();
+		daButton.antialiasing = true;
+		add(daButton);
+
 		var brickSpeen = new FlxSprite(-315, -100);
 		brickSpeen.frames = Paths.getSparrowAtlas('brick/brickin','shared');
 		brickSpeen.scrollFactor.x = 0;
