@@ -133,7 +133,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.y += 100;
 			menuItem.scale.set(0.9, 0.9);
 			menuItems.add(menuItem);
-			menuItem.scrollFactor.set();
+			menuItem.scrollFactor.set(0,0.05);
 			menuItem.antialiasing = true;
 			if (firstStart == true)
 				FlxTween.tween(menuItem,{y: 150 + (i * 160)},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
