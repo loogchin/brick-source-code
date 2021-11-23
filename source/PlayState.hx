@@ -2051,7 +2051,7 @@ class PlayState extends MusicBeatState
 			dad.playAnim('shoot', true);
 		}
 		
-		function bfBlock()
+		function bfDodge()
 		{
 			boyfriend.playAnim('dodge', true); // :gun:
 		}
@@ -2070,8 +2070,8 @@ class PlayState extends MusicBeatState
 			{
 				if (pressedSpace)
 				{
-				    bfBlock();
-					trace('wow u blocked!!'); //woah!!!! he blocked!!!!
+				    bfDodge();
+					trace('wow u dodge!!'); //woah!!!! he dodge!!!!
 					FlxG.camera.shake(0.04, 0.04);
 					FlxG.sound.play(Paths.soundRandom('brick/jump', 1, 5), 0.6); // he shit his pants :stare:
 				}
