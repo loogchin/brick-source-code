@@ -27,9 +27,34 @@
 	<SubTexture name="right0002" x="2080" y="3507" width="2080" height="1169"/>
 	<SubTexture name="right0003" x="4160" y="3507" width="2080" height="1169"/>
 	<SubTexture name="right0004" x="4160" y="3507" width="2080" height="1169"/>
-	<SubTexture name="up0000" x="0" y="4676" width="2080" height="1169" frameX="0" frameY="-26" frameWidth="2080" frameHeight="1195"/>
-	<SubTexture name="up0001" x="0" y="4676" width="2080" height="1169" frameX="0" frameY="-26" frameWidth="2080" frameHeight="1195"/>
-	<SubTexture name="up0002" x="2080" y="4676" width="2080" height="1169" frameX="0" frameY="-10" frameWidth="2080" frameHeight="1195"/>
-	<SubTexture name="up0003" x="4160" y="4676" width="2080" height="1169" frameX="0" frameY="0" frameWidth="2080" frameHeight="1195"/>
-	<SubTexture name="up0004" x="4160" y="4676" width="2080" height="1169" frameX="0" frameY="0" frameWidth="2080" frameHeight="1195"/>
+	<SubTexture name="shoot0000" x="0" y="4676" width="2080" height="1169"/>
+	<SubTexture name="shoot0001" x="0" y="4676" width="2080" height="1169"/>
+	<SubTexture name="shoot0002" x="0" y="4676" width="2080" height="1169"/>
+	<SubTexture name="shoot0003" x="0" y="4676" width="2080" height="1169"/>
+	<SubTexture name="shoot0004" x="0" y="4676" width="2080" height="1169"/>
+	<SubTexture name="up0000" x="2080" y="4676" width="2080" height="1169" frameX="0" frameY="-26" frameWidth="2080" frameHeight="1195"/>
+	<SubTexture name="up0001" x="2080" y="4676" width="2080" height="1169" frameX="0" frameY="-26" frameWidth="2080" frameHeight="1195"/>
+	<SubTexture name="up0002" x="4160" y="4676" width="2080" height="1169" frameX="0" frameY="-10" frameWidth="2080" frameHeight="1195"/>
+	<SubTexture name="up0003" x="0" y="5845" width="2080" height="1169" frameX="0" frameY="0" frameWidth="2080" frameHeight="1195"/>
+	<SubTexture name="up0004" x="0" y="5845" width="2080" height="1169" frameX="0" frameY="0" frameWidth="2080" frameHeight="1195"/>
+	<SubTexture name="warning0000" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0001" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0002" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0003" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0004" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0005" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0006" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0007" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0008" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0009" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0010" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0011" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0012" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0013" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0014" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0015" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0016" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0017" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0018" x="2080" y="5845" width="2080" height="1169"/>
+	<SubTexture name="warning0019" x="2080" y="5845" width="2080" height="1169"/>
 </TextureAtlas>
