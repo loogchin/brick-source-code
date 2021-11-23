@@ -873,6 +873,9 @@ class PlayState extends MusicBeatState
 			case 'madbrick':
 				dad.x -= 733.4;
 				dad.y -= 176.75;
+			case 'him':
+				dad.x -= 50;
+				dad.y -= 190;
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -2365,6 +2368,9 @@ class PlayState extends MusicBeatState
 					case 'madbrick':
 						camFollow.y = dad.getMidpoint().y + 21;
 						camFollow.x = dad.getMidpoint().x + 300;
+					case 'him':
+						camFollow.y = dad.getMidpoint().y - 125;
+						camFollow.x = dad.getMidpoint().x - 500;
 				}
 
 				if (dad.curCharacter == 'mom')

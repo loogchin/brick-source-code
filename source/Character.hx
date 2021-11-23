@@ -56,6 +56,28 @@ class Character extends FlxSprite
 	
 				playAnim('idle');
 
+			case 'him':
+				// HIM!!!!
+				tex = Paths.getSparrowAtlas('brick/him');
+				frames = tex;
+				animation.addByPrefix('idle', 'idle', 24);
+				animation.addByPrefix('singUP', 'up', 24);
+				animation.addByPrefix('singRIGHT', 'right', 24);
+				animation.addByPrefix('singDOWN', 'down', 24);
+				animation.addByPrefix('singLEFT', 'left', 24);
+		
+				addOffset('idle',0, 0);
+				addOffset("singUP",0, 40);
+				addOffset("singRIGHT",-20, 40);
+				addOffset("singLEFT",-10, 0);
+				addOffset("singDOWN",-20, 40);
+
+				setGraphicSize(Std.int(width * 1.3));
+				updateHitbox();
+				antialiasing = true;
+
+				playAnim('idle');
+	
 			case 'milkyway':
 				// a fuckin chocolate bar
 				tex = Paths.getSparrowAtlas('brick/milky/milkyway');
