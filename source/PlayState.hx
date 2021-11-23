@@ -2084,17 +2084,6 @@ class PlayState extends MusicBeatState
 			});
 		}
 
-if (dad.curCharacter == 'him')
-            {
-                switch (curBeat)
-                {
-                    case 15:
-                        attack();
-                    case 17:
-                        attack();
-                }
-            }
-
 		// reverse iterate to remove oldest notes first and not invalidate the iteration
 		// stop iteration as soon as a note is not removed
 		// all notes should be kept in the correct order and this is optimal, safe to do every frame/update
@@ -2713,7 +2702,7 @@ if (dad.curCharacter == 'him')
 						if (dad.curCharacter == 'him')
 							{
 								// mmm funni health drain and hud shake lol
-								camHUD.shake(0.0055);
+								camHUD.shake(0.002);
 								if (health > 0.03)
 									health -= 0.014;
 								else
