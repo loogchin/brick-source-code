@@ -2051,7 +2051,7 @@ class PlayState extends MusicBeatState
 			dad.playAnim('shoot', true);
 		}
 		
-		function bfDodge()
+		function bfBlock()
 		{
 			boyfriend.playAnim('dodge', true); // :gun:
 		}
@@ -2070,8 +2070,8 @@ class PlayState extends MusicBeatState
 			{
 				if (pressedSpace)
 				{
-				    bfDodge();
-					trace('wow u dodge!!'); //woah!!!! he dodge!!!!
+				    bfBlock();
+					trace('wow u blocked!!'); //woah!!!! he blocked!!!!
 					FlxG.camera.shake(0.04, 0.04);
 					FlxG.sound.play(Paths.soundRandom('brick/jump', 1, 5), 0.6); // he shit his pants :stare:
 				}
@@ -2083,6 +2083,18 @@ class PlayState extends MusicBeatState
 				}
 			});
 		}
+
+if (dad.curCharacter == 'him')
+            {
+                switch (curBeat)
+                {
+                    case 15:
+                        attack();
+                    case 17:
+                        attack();
+                }
+            }
+
 		// reverse iterate to remove oldest notes first and not invalidate the iteration
 		// stop iteration as soon as a note is not removed
 		// all notes should be kept in the correct order and this is optimal, safe to do every frame/update
@@ -4221,17 +4233,6 @@ class PlayState extends MusicBeatState
 		{
 			gf.dance();
 		}
-
-		if (dad.curCharacter == 'him' && SONG.Song.toLowerCase() == 'him')
-            {
-                switch (curBeat)
-                {
-                    case 15:
-                        slashEvent();
-                    case 17:
-                        attack();
-                }
-            }
 
 		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
 		{
