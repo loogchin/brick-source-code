@@ -4222,6 +4222,17 @@ class PlayState extends MusicBeatState
 			gf.dance();
 		}
 
+		if (dad.curCharacter == 'him' && SONG.Song.toLowerCase() == 'him')
+            {
+                switch (curBeat)
+                {
+                    case 15:
+                        slashEvent();
+                    case 17:
+                        attack();
+                }
+            }
+
 		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
 		{
 			boyfriend.playAnim('idle');
