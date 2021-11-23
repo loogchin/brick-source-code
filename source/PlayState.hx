@@ -92,10 +92,10 @@ class PlayState extends MusicBeatState
 	public static var weekSong:Int = 0;
 	public static var weekScore:Int = 0;
 	public static var shits:Int = 0;
-	public static var bads:Int = 0;
+	public static var bads:Int = 0; 
 	public static var goods:Int = 0;
 	public static var sicks:Int = 0;
-
+	
 	public static var songPosBG:FlxSprite;
 	public static var songPosBar:FlxBar;
 
@@ -190,6 +190,8 @@ class PlayState extends MusicBeatState
 	var santa:FlxSprite;
 
 	var fc:Bool = true;
+
+	var detectAttack:Bool = false;
 
 	var bgGirls:BackgroundGirls;
 	var wiggleShit:WiggleEffect = new WiggleEffect();
@@ -1944,10 +1946,7 @@ class PlayState extends MusicBeatState
 					FlxG.stage.window.onFocusIn.remove(focusIn);
 					removedVideo = true;
 				}
-			}
-
-
-		
+			}	
 		#if windows
 		if (executeModchart && luaModchart != null && songStarted)
 		{
@@ -2003,7 +2002,87 @@ class PlayState extends MusicBeatState
 		}
 
 		#end
+        var pressCounter = 0;
+		var pressedSpace:Bool = false;
 
+		if (SONG.song.toLowerCase() == 'him')
+			{
+				if (FlxG.keys.justPressed.SPACE)
+					{
+						boyfriend.playAnim('dodge', true); 
+					}		
+			}
+		function detectSpace()
+			{
+				if (FlxG.keys.justPressed.SPACE)
+				{
+					pressCounter += 1;
+					pressedSpace = true;
+					detectAttack = false;
+					trace('zamnnn')
+				}
+			}
+			
+		if (detectAttack)
+			{
+				detectSpace();
+			}
+
+		function fail()
+		{
+			new FlxTimer().start(0.05, function(tmr:FlxTimer)
+			{
+					boyfriend.playAnim('singDOWNmiss', true);
+
+					if (health > 1)
+					{
+                        health -= 5;
+					}
+					else{
+						health -= 0.25;
+					}
+
+			});
+				FlxG.camera.shake(0.05, 0.05);
+		}
+		
+		function attack()
+		{
+			dad.playAnim('shoot', true);
+		}
+		
+		function bfBlock()
+		{
+			boyfriend.playAnim('dodge', true); // :gun:
+		}
+
+		function warning()
+		{
+            dad.playAnim('warning', true);
+		}
+		function Event()
+		{
+	        warning();
+			pressedSpace = false;
+			detectAttack = true;
+			//attack();
+			new FlxTimer().start(0.5, function(tmr:FlxTimer)
+			{
+				if (pressedSpace)
+				{
+				    bfBlock();
+					trace('wow u blocked!!'); //woah!!!! he blocked!!!!
+					FlxG.camera.shake(0.04, 0.04);
+					FlxG.sound.play(Paths.soundRandom('brick/jump', 1, 5), 0.6); // he shit his pants :stare:
+				}
+				else
+				{
+					pressedSpace = false;
+					detectAttack = false;
+					fail(); //ok thats it lol
+				}
+			});
+		}
 		// reverse iterate to remove oldest notes first and not invalidate the iteration
 		// stop iteration as soon as a note is not removed
 		// all notes should be kept in the correct order and this is optimal, safe to do every frame/update
@@ -2618,6 +2697,16 @@ class PlayState extends MusicBeatState
 							case 0:
 								dad.playAnim('singLEFT' + altAnim, true);
 						}
+
+						if (dad.curCharacter == 'him')
+							{
+								// mmm funni health drain and hud shake lol
+								camHUD.shake(0.0055);
+								if (health > 0.03)
+									health -= 0.014;
+								else
+									health = 0.02;
+							}
 						
 						if (FlxG.save.data.cpuStrums)
 						{
