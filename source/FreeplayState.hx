@@ -52,7 +52,7 @@ class FreeplayState extends MusicBeatState
 			if (FlxG.sound.music != null)
 			{
 				if (!FlxG.sound.music.playing)
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('brick_main_menu_fartpiss'));
 			}
 		 */
 
