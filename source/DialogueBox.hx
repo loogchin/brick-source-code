@@ -65,7 +65,7 @@ class DialogueBox extends FlxSpriteGroup
 		var hasDialog = false;
 		switch (PlayState.SONG.song.toLowerCase())
 		{
-			case 'brick' | 'spin-it-again':
+			case 'brick' | 'spin-it-again' | 'kill-issue':
 
 				hasDialog = true;				
 				box.setGraphicSize(Std.int(box.width * PlayState.daPixelZoom * 0.85));

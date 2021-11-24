@@ -370,6 +370,10 @@ class PlayState extends MusicBeatState
 				];
 			case 'brick':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('brick/epicandcooldialog'));
+			case 'spin-it-again':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('spin-it-again/epicerdialog'));
+			case 'kill-issue':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('kill-issue/ohshit'));
 		}
 
 		//defaults if no stage was found in chart
@@ -1161,6 +1165,10 @@ class PlayState extends MusicBeatState
 						});
 					});
 				case 'brick':
+					schoolIntro(doof);
+				case 'spin-it-again':
+					schoolIntro(doof);
+				case 'kill-issue':
 					schoolIntro(doof);
 				default:
 					startCountdown();
