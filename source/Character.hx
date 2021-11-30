@@ -60,20 +60,18 @@ class Character extends FlxSprite
 				// HIM!!!!
 				tex = Paths.getSparrowAtlas('brick/him');
 				frames = tex;
-				animation.addByPrefix('idle', 'idle', 24);
-				animation.addByPrefix('singUP', 'up', 24);
-				animation.addByPrefix('singRIGHT', 'right', 24);
-				animation.addByPrefix('singDOWN', 'down', 24);
-				animation.addByPrefix('singLEFT', 'left', 24);
+				animation.addByPrefix('idle', 'Him_IdleDance', 24);
+				animation.addByPrefix('singUP', 'Him_UpSing', 24);
+				animation.addByPrefix('singRIGHT', 'Him_RightSing', 24);
+				animation.addByPrefix('singDOWN', 'Him_DownSing', 24);
+				animation.addByPrefix('singLEFT', 'Him_LeftSing', 24);
 		
-				addOffset('idle',0, 0);
-				addOffset("singUP",0, 40);
-				addOffset("singRIGHT",-20, 40);
-				addOffset("singLEFT",-10, 0);
-				addOffset("singDOWN",-20, 40);
-
-				setGraphicSize(Std.int(width * 1.3));
-				updateHitbox();
+				addOffset('idle');
+				addOffset("singUP");
+				addOffset("singRIGHT");
+				addOffset("singLEFT");
+				addOffset("singDOWN");
+				
 				antialiasing = true;
 
 				playAnim('idle');

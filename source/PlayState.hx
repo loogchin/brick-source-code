@@ -2456,9 +2456,6 @@ class PlayState extends MusicBeatState
 					case 'madbrick':
 						camFollow.y = dad.getMidpoint().y + 21;
 						camFollow.x = dad.getMidpoint().x + 300;
-					case 'him':
-						camFollow.y = dad.getMidpoint().y - 125;
-						camFollow.x = dad.getMidpoint().x - 500;
 				}
 
 				if (dad.curCharacter == 'mom')
