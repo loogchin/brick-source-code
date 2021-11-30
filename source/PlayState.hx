@@ -125,6 +125,12 @@ class PlayState extends MusicBeatState
 	public static var gf:Character;
 	public static var boyfriend:Boyfriend;
 
+	public static var dadnoteMovementXoffset:Int = 0;
+	public static var dadnoteMovementYoffset:Int = 0;
+
+	public static var bfnoteMovementXoffset:Int = 0;
+	public static var bfnoteMovementYoffset:Int = 0;
+
 	public var notes:FlxTypedGroup<Note>;
 	private var unspawnNotes:Array<Note> = [];
 
@@ -161,6 +167,8 @@ class PlayState extends MusicBeatState
 	
 	private var generatedMusic:Bool = false;
 	private var startingSong:Bool = false;
+
+	private var him:Float = 0;
 
 	public var iconP1:HealthIcon; //making these public again because i may be stupid
 	public var iconP2:HealthIcon; //what could go wrong?
@@ -334,6 +342,12 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
+	
+		dadnoteMovementXoffset = 0;
+		dadnoteMovementYoffset = 0;
+
+		bfnoteMovementXoffset = 0;
+		bfnoteMovementYoffset = 0;
 
 		FlxCamera.defaultCameras = [camGame];
 
@@ -720,12 +734,12 @@ class PlayState extends MusicBeatState
 			}
 			case 'baseplate':
 				{
-						defaultCamZoom = 0.7;
+						defaultCamZoom = 0.63;
 						curStage = 'baseplate';
 						var sky:FlxSprite = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/sky'));
 						sky.setGraphicSize(Std.int(sky.width * 1.5));
 						sky.antialiasing = true;
-						sky.scrollFactor.set(0.9, 0.9);
+						sky.scrollFactor.set(0.9, 1.2);
 						sky.active = false;
 						add(sky);						
 						
@@ -880,8 +894,8 @@ class PlayState extends MusicBeatState
 				dad.x -= 733.4;
 				dad.y -= 176.75;
 			case 'him':
-				dad.x -= 50;
-				dad.y -= 190;
+				dad.x -= 500;
+				dad.y += -500;
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -1937,6 +1951,7 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		him += 0.02;
 		#if !debug
 		perfectMode = false;
 		#end
@@ -2187,6 +2202,10 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
+		if (dad.curCharacter == "him"){
+			dad.y += Math.sin(him);
+		}
+
 		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
 		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
 
@@ -2433,7 +2452,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(dad.getMidpoint().x + 150 + offsetX, dad.getMidpoint().y - 100 + offsetY);
+				camFollow.setPosition(dad.getMidpoint().x + 150 + dadnoteMovementXoffset, dad.getMidpoint().y - 100 + offsetY + dadnoteMovementYoffset);
 				#if windows
 				if (luaModchart != null)
 					luaModchart.executeState('playerTwoTurn', []);
@@ -2473,7 +2492,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 110 + offsetY);
+				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX + bfnoteMovementXoffset, boyfriend.getMidpoint().y - 100 + offsetY + bfnoteMovementYoffset);
 
 				#if windows
 				if (luaModchart != null)
@@ -3912,12 +3931,16 @@ class PlayState extends MusicBeatState
 					{
 						case 2:
 							boyfriend.playAnim('singUP', true);
+							bfnoteMovementYoffset = -25;
 						case 3:
 							boyfriend.playAnim('singRIGHT', true);
+							bfnoteMovementXoffset = 25;
 						case 1:
 							boyfriend.playAnim('singDOWN', true);
+							bfnoteMovementYoffset = 25;
 						case 0:
 							boyfriend.playAnim('singLEFT', true);
+							bfnoteMovementXoffset = -25;
 					}
 		
 					#if windows
