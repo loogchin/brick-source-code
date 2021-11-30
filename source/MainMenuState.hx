@@ -38,6 +38,13 @@ class MainMenuState extends MusicBeatState
 	var newGaming2:FlxText;
 	public static var firstStart:Bool = true;
 
+	var curCode:String = '';
+	var curCode2:String = '';
+	var codeInt = 0;
+	var codeInt2 = 0;
+	var neededCode:Array<String> = ['H', 'I', 'M'];
+	var neededCode2:Array<String> = ['D', 'R', 'I', 'P', 'P', 'Y', 'H', 'I', 'M'];
+
 	public static var nightly:String = "";
 
 	public static var kadeEngineVer:String = "1.5.4" + nightly;
@@ -169,6 +176,60 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+        if (FlxG.keys.justPressed.ANY)
+		{
+			var curKey = FlxG.keys.getIsDown()[0].ID.toString();
+
+			if (neededCode.contains(curKey) && neededCode[codeInt] == curKey)
+			{
+				curCode += curKey;
+				curCode2 += curKey;
+				codeInt++;
+				codeInt2++;
+			}
+			else
+			{
+				curCode = '';
+				curCode2 = '';
+				codeInt = 0;
+				codeInt2 = 0;
+			}
+		}
+
+		if (curCode == 'HIM')
+		{
+			PlayState.SONG = Song.loadFromJson('him', 'him');
+			PlayState.isStoryMode = false;
+			PlayState.storyDifficulty = 3;
+			new FlxTimer().start(0.07, function(tmr:FlxTimer)
+				{
+					LoadingState.loadAndSwitchState(new PlayState()); 
+				});
+		}
+
+		if (codeInt == 10)
+			{
+				curCode = 'HIM';
+				codeInt = 0;
+			} 
+
+		if (curCode2 == 'DRIPPYHIM')
+			{
+				PlayState.SONG = Song.loadFromJson('dripping', 'dripping');
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = 3;
+				new FlxTimer().start(0.07, function(tmr:FlxTimer)
+					{
+						LoadingState.loadAndSwitchState(new PlayState()); 
+					});
+			}
+
+		if (codeInt2 == 10)
+			{
+				curCode2 = 'DRIPPYHIM';
+				codeInt2 = 0;
+			} 
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
