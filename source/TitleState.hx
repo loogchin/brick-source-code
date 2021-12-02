@@ -369,7 +369,7 @@ class TitleState extends MusicBeatState
 			{
 				var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false);
 				money.screenCenter(X);
-				money.y += (i * 60) + 100;
+				money.y += (i * 60) + 80;
 				credGroup.add(money);
 				textGroup.add(money);
 			}
@@ -379,7 +379,7 @@ class TitleState extends MusicBeatState
 			{
 				var coolText:Alphabet = new Alphabet(0, 0, text, true, false);
 				coolText.screenCenter(X);
-				coolText.y += (textGroup.length * 60) + 100;
+				coolText.y += (textGroup.length * 60) + 80;
 				credGroup.add(coolText);
 				textGroup.add(coolText);
 			}
@@ -413,7 +413,7 @@ class TitleState extends MusicBeatState
 		switch (curBeat)
 		{
 			case 1:
-				createCoolerText(['Ekical', 'Jacks', 'Netamaru', 'salty sovet', 'vidz', 'cyberbyte', 'chromasen']);
+				createCoolerText(['Ekical', 'Jacks', 'Netamaru', 'salty sovet', 'vidz', 'cyberbyte', 'chromasen', 'GoggledAnimations', 'Mustard']);
 			// credTextShit.visible = true;
 			case 3:
 				addEvenMoreText('present');

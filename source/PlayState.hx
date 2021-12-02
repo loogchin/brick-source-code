@@ -880,8 +880,8 @@ class PlayState extends MusicBeatState
 				dad.x -= 733.4;
 				dad.y -= 176.75;
 			case 'him':
-				dad.x -= 50;
-				dad.y -= 190;
+				dad.x -= 370;
+				dad.y -= 30;
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -2198,17 +2198,20 @@ class PlayState extends MusicBeatState
 		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
 		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
 
-		if (health > 2)
-			health = 2;
 		if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
-		else
-			iconP1.animation.curAnim.curFrame = 0;
+            iconP1.animation.curAnim.curFrame = 1;
+        else if (healthBar.percent > 80)
+            iconP1.animation.curAnim.curFrame = 2;
+        else
+            iconP1.animation.curAnim.curFrame = 0;
 
-		if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
-		else
-			iconP2.animation.curAnim.curFrame = 0;
+
+        if (healthBar.percent > 80)
+            iconP2.animation.curAnim.curFrame = 1;
+        else if (healthBar.percent < 20)
+            iconP2.animation.curAnim.curFrame = 2;
+        else
+            iconP2.animation.curAnim.curFrame = 0;
 
 		/* if (FlxG.keys.justPressed.NINE)
 			FlxG.switchState(new Charting()); */
@@ -2473,7 +2476,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 110 + offsetY);
+				camFollow.setPosition(boyfriend.x + boyfriend.frameWidth/2 - 100 + offsetX, boyfriend.y + boyfriend.height - boyfriend.frameHeight/2 - 100 + offsetY);
 
 				#if windows
 				if (luaModchart != null)

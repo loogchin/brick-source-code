@@ -65,12 +65,16 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'Him_RightSing', 24);
 				animation.addByPrefix('singDOWN', 'Him_DownSing', 24);
 				animation.addByPrefix('singLEFT', 'Him_LeftSing', 24);
+				animation.addByPrefix('PreShoot', 'Him_PreShoot', 24);
+				animation.addByPrefix('Shoot', 'Him_Shoot', 24);
 		
 				addOffset('idle');
 				addOffset("singUP");
 				addOffset("singRIGHT");
 				addOffset("singLEFT");
 				addOffset("singDOWN");
+				addOffset("PreShoot");
+				addOffset("Shoot");
 				
 				antialiasing = true;
 
