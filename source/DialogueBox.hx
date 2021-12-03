@@ -104,7 +104,7 @@ class DialogueBox extends FlxSpriteGroup
 			add(portraitRight);
 			portraitRight.visible = false;
 		}
-		else if (PlayState.SONG.song.toLowerCase() == 'brick' || PlayState.SONG.song.toLowerCase() == 'spin-it-again')
+		else if (PlayState.SONG.song.toLowerCase() == 'brick' || PlayState.SONG.song.toLowerCase() == 'spin-it-again' || PlayState.SONG.song.toLowerCase() == 'kill-issue')
 		{
 			portraitLeft = new FlxSprite(-50, 50);
 			portraitLeft.frames = Paths.getSparrowAtlas('brick/brickdialog');

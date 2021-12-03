@@ -191,6 +191,8 @@ class PlayState extends MusicBeatState
 
 	var fc:Bool = true;
 
+	var dodgeMechanic:Bool;
+
 	var detectAttack:Bool = false;
 
 	var bgGirls:BackgroundGirls;
@@ -373,7 +375,7 @@ class PlayState extends MusicBeatState
 			case 'spin-it-again':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('spin-it-again/epicerdialog'));
 			case 'kill-issue':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('kill-issue/ohshit'));
+				dialogue = CoolUtil.coolTextFile(Paths.txt('kill-issue/cooldialog'));
 		}
 
 		//defaults if no stage was found in chart
@@ -879,6 +881,7 @@ class PlayState extends MusicBeatState
 			case 'madbrick':
 				dad.x -= 733.4;
 				dad.y -= 176.75;
+				camPos.set(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y + 40);
 			case 'him':
 				dad.x -= 370;
 				dad.y -= 30;
@@ -1941,6 +1944,13 @@ class PlayState extends MusicBeatState
 		perfectMode = false;
 		#end
 
+		if (FlxG.keys.justPressed.SPACE)
+			{
+				dodgeMechanic = true;
+				boyfriend.playAnim('dodge', true);
+				FlxG.sound.play(Paths.sound('jump'));
+			}
+
 		if (PlayStateChangeables.botPlay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
 
@@ -2010,87 +2020,6 @@ class PlayState extends MusicBeatState
 		}
 
 		#end
-        var pressCounter = 0;
-		var pressedSpace:Bool = false;
-
-		if (SONG.song.toLowerCase() == 'him')
-			{
-				if (FlxG.keys.justPressed.SPACE)
-					{
-						boyfriend.playAnim('dodge', true); 
-					}		
-			}
-		function detectSpace()
-			{
-				if (FlxG.keys.justPressed.SPACE)
-				{
-					pressCounter += 1;
-					pressedSpace = true;
-					detectAttack = false;
-					trace('zamnnn');
-				}
-			}
-			
-		if (detectAttack)
-			{
-				detectSpace();
-			}
-
-		function fail()
-		{
-			new FlxTimer().start(0.05, function(tmr:FlxTimer)
-			{
-					boyfriend.playAnim('singDOWNmiss', true);
-
-					if (health > 1)
-					{
-                        health -= 5;
-					}
-					else{
-						health -= 0.25;
-					}
-
-			});
-				FlxG.camera.shake(0.05, 0.05);
-		}
-		
-		function attack()
-		{
-			dad.playAnim('shoot', true);
-		}
-		
-		function bfBlock()
-		{
-			boyfriend.playAnim('dodge', true); // :gun:
-		}
-
-		function warning()
-		{
-            dad.playAnim('warning', true);
-		}
-		function Event()
-		{
-	        warning();
-			pressedSpace = false;
-			detectAttack = true;
-			//attack();
-			new FlxTimer().start(0.5, function(tmr:FlxTimer)
-			{
-				if (pressedSpace)
-				{
-				    bfBlock();
-					trace('wow u blocked!!'); //woah!!!! he blocked!!!!
-					FlxG.camera.shake(0.04, 0.04);
-					FlxG.sound.play(Paths.soundRandom('brick/jump', 1, 5), 0.6); // he shit his pants :stare:
-				}
-				else
-				{
-					pressedSpace = false;
-					detectAttack = false;
-					fail(); //ok thats it lol
-				}
-			});
-		}
 
 		// reverse iterate to remove oldest notes first and not invalidate the iteration
 		// stop iteration as soon as a note is not removed
@@ -2236,8 +2165,6 @@ class PlayState extends MusicBeatState
 						setChrome(chromeOffset);
 						}	
 				}
-	
-			trace(FlxG.sound.music.volume);
 
 			#if debug
 			if (FlxG.keys.pressed.N)
@@ -2459,6 +2386,8 @@ class PlayState extends MusicBeatState
 					case 'madbrick':
 						camFollow.y = dad.getMidpoint().y + 21;
 						camFollow.x = dad.getMidpoint().x + 300;
+					case 'him':
+						camFollow.y = dad.getMidpoint().y - 8;
 				}
 
 				if (dad.curCharacter == 'mom')
@@ -2476,7 +2405,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.x + boyfriend.frameWidth/2 - 100 + offsetX, boyfriend.y + boyfriend.height - boyfriend.frameHeight/2 - 100 + offsetY);
+				camFollow.setPosition(boyfriend.x + boyfriend.frameWidth/2 - 100 + offsetX, boyfriend.y + boyfriend.height - boyfriend.frameHeight/2 - 145 + offsetY);
 
 				#if windows
 				if (luaModchart != null)
@@ -4128,6 +4057,28 @@ class PlayState extends MusicBeatState
 						camHUD.shake(0.0055, 0.15);
 					}
 			}
+
+			if (curSong == 'him') 
+                {
+                    switch (curStep)
+                    {
+                        case 15:
+                            dad.playAnim('PreShoot', true);
+                            if (dodgeMechanic == true)
+                            {
+                                health += 0.15;
+                                trace('chad');
+                            }
+                            new FlxTimer().start(3, function(tmr:FlxTimer) {
+                                if (dodgeMechanic == false)
+                                    {
+									dad.playAnim('Shoot', true);
+                                    health = 0;
+                                    trace('loser');
+                                    }
+                                });
+                     }
+                }
 
 		super.stepHit();
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
