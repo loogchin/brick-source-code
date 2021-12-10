@@ -885,6 +885,10 @@ class PlayState extends MusicBeatState
 			case 'him':
 				dad.x -= 370;
 				dad.y -= 30;
+			case 'driphim':
+				dad.x -= 700;
+				dad.y -= 20;
+				camPos.set(dad.getGraphicMidpoint().x + 150, dad.getGraphicMidpoint().y - 80);
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -1956,7 +1960,6 @@ class PlayState extends MusicBeatState
 			{
 				dodgeMechanic = true;
 				boyfriend.playAnim('dodge', true);
-				FlxG.sound.play(Paths.sound('jump'));
 			}
 
 		if (PlayStateChangeables.botPlay && FlxG.keys.justPressed.ONE)
@@ -2413,6 +2416,9 @@ class PlayState extends MusicBeatState
 						camFollow.x = dad.getMidpoint().x + 300;
 					case 'him':
 						camFollow.y = dad.getMidpoint().y - 8;
+					case 'driphim':
+						camFollow.y = dad.getMidpoint().y + 125;
+						camFollow.x = dad.getMidpoint().x + 600;
 				}
 
 				if (dad.curCharacter == 'mom')

@@ -79,6 +79,29 @@ class Character extends FlxSprite
 				antialiasing = true;
 
 				playAnim('idle');
+
+				case 'driphim':
+					// HIM!!!!
+					tex = Paths.getSparrowAtlas('brick/himdrip');
+					frames = tex;
+					animation.addByPrefix('idle', 'idle', 24);
+					animation.addByPrefix('singUP', 'up', 24);
+					animation.addByPrefix('singRIGHT', 'right', 24);
+					animation.addByPrefix('singDOWN', 'down', 24);
+					animation.addByPrefix('singLEFT', 'left', 24);
+			
+					addOffset('idle', -20, 20);
+					addOffset("singUP", 120, 70);
+					addOffset("singRIGHT", 10, 20);
+					addOffset("singLEFT", 80, 30);
+					addOffset("singDOWN", -10, 10);
+
+					setGraphicSize(Std.int(width * 0.53));
+					updateHitbox();
+					
+					antialiasing = true;
+	
+					playAnim('idle');
 	
 			case 'milkyway':
 				// a fuckin chocolate bar

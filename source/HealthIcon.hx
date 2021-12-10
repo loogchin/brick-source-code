@@ -30,6 +30,7 @@ class HealthIcon extends FlxSprite
 		animation.add('brick', [24, 25], 0, false, isPlayer);
 		animation.add('madbrick', [26, 27], 0, false, isPlayer);
 		animation.add('him', [10, 11, 26], 0, false, isPlayer);
+		animation.add('driphim', [10, 11, 26], 0, false, isPlayer);
 		animation.add('dad', [12, 13], 0, false, isPlayer);
 		animation.add('senpai', [22, 22], 0, false, isPlayer);
 		animation.add('senpai-angry', [22, 22], 0, false, isPlayer);
