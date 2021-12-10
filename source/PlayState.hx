@@ -1,5 +1,6 @@
 package;
 
+import flixel.input.gamepad.lists.FlxBaseGamepadList;
 #if sys
 import sys.io.File;
 import sys.io.Process;
@@ -193,7 +194,7 @@ class PlayState extends MusicBeatState
 
 	var dodgeMechanic:Bool;
 
-	var detectAttack:Bool = false;
+	private var warningText:FlxSprite;
 
 	var bgGirls:BackgroundGirls;
 	var wiggleShit:WiggleEffect = new WiggleEffect();
@@ -375,7 +376,7 @@ class PlayState extends MusicBeatState
 			case 'spin-it-again':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('spin-it-again/epicerdialog'));
 			case 'kill-issue':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('kill-issue/cooldialog'));
+				dialogue = CoolUtil.coolTextFile(Paths.txt('kill-issue/ohshit'));
 		}
 
 		//defaults if no stage was found in chart
@@ -881,7 +882,6 @@ class PlayState extends MusicBeatState
 			case 'madbrick':
 				dad.x -= 733.4;
 				dad.y -= 176.75;
-				camPos.set(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y + 40);
 			case 'him':
 				dad.x -= 370;
 				dad.y -= 30;
@@ -1061,6 +1061,14 @@ class PlayState extends MusicBeatState
 		healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
 		// healthBar
 		add(healthBar);
+
+		warningText = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('warningText'));
+		warningText.y = 0;
+		warningText.screenCenter(X);
+		warningText.scrollFactor.set();
+		warningText.scale.set(0.9, 0.9);
+		warningText.visible = false;
+		add(warningText);
 
 		// Add Kade Engine watermark
 		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " - " + CoolUtil.difficultyFromInt(storyDifficulty) + (Main.watermarks ? " | KE " + MainMenuState.kadeEngineVer : ""), 16);
@@ -1944,11 +1952,10 @@ class PlayState extends MusicBeatState
 		perfectMode = false;
 		#end
 
-		if (FlxG.keys.justPressed.SPACE)
+		if (FlxG.keys.pressed.SPACE)
 			{
 				dodgeMechanic = true;
 				boyfriend.playAnim('dodge', true);
-				FlxG.sound.play(Paths.sound('jump'));
 			}
 
 		if (PlayStateChangeables.botPlay && FlxG.keys.justPressed.ONE)
@@ -2020,6 +2027,23 @@ class PlayState extends MusicBeatState
 		}
 
 		#end
+
+
+		if (SONG.song.toLowerCase() == 'him')
+			{
+				if (FlxG.keys.justPressed.SPACE)
+					{
+						boyfriend.playAnim('dodge', true); 
+					}		
+			}
+
+		if (SONG.song.toLowerCase() == 'dripping')
+			{
+				if (FlxG.keys.justPressed.SPACE)
+					{
+						boyfriend.playAnim('dodge', true); 
+					}		
+			}
 
 		// reverse iterate to remove oldest notes first and not invalidate the iteration
 		// stop iteration as soon as a note is not removed
@@ -3988,6 +4012,44 @@ class PlayState extends MusicBeatState
 
 	var danced:Bool = false;
 
+	function chillouthimdontpulloutthenine()
+	{
+		trace('chill out him dont pull out the nine');
+		new FlxTimer().start(2.5, function(tmr:FlxTimer)
+			{
+				warningText.visible = true;
+			});
+		new FlxTimer().start(2.98, function(tmr:FlxTimer)
+			{
+				warningText.visible = false;
+			});
+		new FlxTimer().start(3, function(tmr:FlxTimer)
+			{
+				dad.playAnim('Shoot', true);
+				trace('holy shit he pulled out the nine');
+			});
+		new FlxTimer().start(3, function(tmr:FlxTimer) {
+			if (dodgeMechanic == true)
+				{
+				health += 0.15;
+				trace('chad');
+				}
+			});
+		new FlxTimer().start(3, function(tmr:FlxTimer) {
+			if (dodgeMechanic == false)
+				{
+				trace('loser');
+				}
+				new FlxTimer().start(0.2, function(tmr:FlxTimer) {
+					if (dodgeMechanic == false)
+						{
+						health = 0;
+						trace('loser');
+						}
+					});
+			});
+	}
+
 	override function stepHit()
 	{
 		if (curSong == 'brick')
@@ -4063,23 +4125,22 @@ class PlayState extends MusicBeatState
                     switch (curStep)
                     {
                         case 15:
-                            dad.playAnim('PreShoot', true);
-                            if (dodgeMechanic == true)
-                            {
-                                health += 0.15;
-                                trace('chad');
-                            }
-                            new FlxTimer().start(3, function(tmr:FlxTimer) {
-                                if (dodgeMechanic == false)
-                                    {
-									dad.playAnim('Shoot', true);
-                                    health = 0;
-                                    trace('loser');
-                                    }
-                                });
+							chillouthimdontpulloutthenine();
                      }
                 }
 
+			if (curSong == 'dripping') 
+				{
+					switch (curStep)
+					{
+						case 35:
+							chillouthimdontpulloutthenine();
+						case 145:
+							chillouthimdontpulloutthenine();
+						case 160:
+							chillouthimdontpulloutthenine();
+					 }
+				}
 		super.stepHit();
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
