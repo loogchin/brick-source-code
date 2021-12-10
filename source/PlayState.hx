@@ -1956,6 +1956,7 @@ class PlayState extends MusicBeatState
 			{
 				dodgeMechanic = true;
 				boyfriend.playAnim('dodge', true);
+				FlxG.sound.play(Paths.sound('jump'));
 			}
 
 		if (PlayStateChangeables.botPlay && FlxG.keys.justPressed.ONE)
