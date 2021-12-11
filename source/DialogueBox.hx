@@ -65,7 +65,7 @@ class DialogueBox extends FlxSpriteGroup
 		var hasDialog = false;
 		switch (PlayState.SONG.song.toLowerCase())
 		{
-			case 'brick' | 'kill-issue':
+			case 'brick' | 'spin-it-again' | 'kill-issue':
 
 				hasDialog = true;				
 				box.setGraphicSize(Std.int(box.width * PlayState.daPixelZoom * 0.85));
@@ -104,7 +104,7 @@ class DialogueBox extends FlxSpriteGroup
 			add(portraitRight);
 			portraitRight.visible = false;
 		}
-		else if (PlayState.SONG.song.toLowerCase() == 'brick' || PlayState.SONG.song.toLowerCase() == 'kill-issue')
+		else if (PlayState.SONG.song.toLowerCase() == 'brick' || PlayState.SONG.song.toLowerCase() == 'spin-it-again' || PlayState.SONG.song.toLowerCase() == 'kill-issue')
 		{
 			portraitLeft = new FlxSprite(-50, 50);
 			portraitLeft.frames = Paths.getSparrowAtlas('brick/brickdialog');

@@ -374,6 +374,8 @@ class PlayState extends MusicBeatState
 				];
 			case 'brick':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('brick/epicandcooldialog'));
+			case 'spin-it-again':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('spin-it-again/epicerdialog'));
 		}
 
 		//defaults if no stage was found in chart
@@ -882,7 +884,7 @@ class PlayState extends MusicBeatState
 			case 'him':
 				dad.x -= 370;
 				dad.y -= 30;
-			case 'driphim':
+			case 'himdrip':
 				dad.x -= 370;
 				dad.y -= 30;
 		}
@@ -1176,6 +1178,8 @@ class PlayState extends MusicBeatState
 						});
 					});
 				case 'brick':
+					schoolIntro(doof);
+				case 'spin-it-again':
 					schoolIntro(doof);
 				default:
 					startCountdown();
@@ -2407,8 +2411,7 @@ class PlayState extends MusicBeatState
 						camFollow.y = dad.getMidpoint().y + 21;
 						camFollow.x = dad.getMidpoint().x + 300;
 					case 'him':
-						camFollow.y = dad.getMidpoint().y + 400;
-						camFollow.x = dad.getMidpoint().x + 600;
+						camFollow.y = dad.getMidpoint().y - 8;
 				}
 
 				if (dad.curCharacter == 'mom')
