@@ -882,7 +882,7 @@ class PlayState extends MusicBeatState
 			case 'him':
 				dad.x -= 370;
 				dad.y -= 30;
-			case 'himdrip':
+			case 'driphim':
 				dad.x -= 370;
 				dad.y -= 30;
 		}
@@ -2407,7 +2407,8 @@ class PlayState extends MusicBeatState
 						camFollow.y = dad.getMidpoint().y + 21;
 						camFollow.x = dad.getMidpoint().x + 300;
 					case 'him':
-						camFollow.y = dad.getMidpoint().y - 8;
+						camFollow.y = dad.getMidpoint().y + 400;
+						camFollow.x = dad.getMidpoint().x + 600;
 				}
 
 				if (dad.curCharacter == 'mom')
