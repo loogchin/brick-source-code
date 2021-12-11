@@ -191,6 +191,7 @@ class PlayState extends MusicBeatState
 	var santa:FlxSprite;
 
 	var fc:Bool = true;
+	var isCutscene:Bool = false;
 
 	var dodgeMechanic:Bool;
 
@@ -373,10 +374,6 @@ class PlayState extends MusicBeatState
 				];
 			case 'brick':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('brick/epicandcooldialog'));
-			case 'spin-it-again':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('spin-it-again/epicerdialog'));
-			case 'kill-issue':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('kill-issue/ohshit'));
 		}
 
 		//defaults if no stage was found in chart
@@ -885,10 +882,9 @@ class PlayState extends MusicBeatState
 			case 'him':
 				dad.x -= 370;
 				dad.y -= 30;
-			case 'driphim':
-				dad.x -= 700;
-				dad.y -= 20;
-				camPos.set(dad.getGraphicMidpoint().x + 150, dad.getGraphicMidpoint().y - 80);
+			case 'himdrip':
+				dad.x -= 370;
+				dad.y -= 30;
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -1180,10 +1176,6 @@ class PlayState extends MusicBeatState
 						});
 					});
 				case 'brick':
-					schoolIntro(doof);
-				case 'spin-it-again':
-					schoolIntro(doof);
-				case 'kill-issue':
 					schoolIntro(doof);
 				default:
 					startCountdown();
@@ -2416,9 +2408,6 @@ class PlayState extends MusicBeatState
 						camFollow.x = dad.getMidpoint().x + 300;
 					case 'him':
 						camFollow.y = dad.getMidpoint().y - 8;
-					case 'driphim':
-						camFollow.y = dad.getMidpoint().y + 125;
-						camFollow.x = dad.getMidpoint().x + 600;
 				}
 
 				if (dad.curCharacter == 'mom')
@@ -2929,11 +2918,31 @@ class PlayState extends MusicBeatState
 					FlxTransitionableState.skipNextTransOut = true;
 					prevCamFollow = camFollow;
 
+					var video:MP4Handler = new MP4Handler();
+
+					if (SONG.song.toLowerCase() == 'spin-it-again')
+						{
+							video.playMP4(Paths.video('thefunny'));
+							video.finishCallback = function()
+							{
+								LoadingState.loadAndSwitchState(new PlayState());
+							}
+						}
+						
+					
+					if (SONG.song.toLowerCase() == 'brick') // made it to avoid crashing. DO NOT DELETE!
+						{
+							video.playMP4(Paths.video('yourcutscene'));
+							video.finishCallback = function()
+							{
+								LoadingState.loadAndSwitchState(new PlayState());
+							}
+						}
+	
 
 					PlayState.SONG = Song.loadFromJson(poop, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
 
-					LoadingState.loadAndSwitchState(new PlayState());
 				}
 			}
 			else
@@ -4133,6 +4142,12 @@ class PlayState extends MusicBeatState
                     {
                         case 15:
 							chillouthimdontpulloutthenine();
+						case 377:
+							defaultCamZoom = 0.82;
+						case 380:
+							defaultCamZoom = 1;
+						case 384:
+							defaultCamZoom = 0.7;
                      }
                 }
 

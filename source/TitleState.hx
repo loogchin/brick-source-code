@@ -46,6 +46,7 @@ class TitleState extends MusicBeatState
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
 	var ngSpr:FlxSprite;
+	var code:Int = 0;
 
 	var curWacky:Array<String> = [];
 
@@ -288,7 +289,31 @@ class TitleState extends MusicBeatState
 		}
 		#end
 
-		if (pressedEnter && !transitioning && skippedIntro)
+		if (FlxG.keys.justPressed.UP)
+			if (code == 0)
+				code = 1;
+			else
+				code == 0;
+
+		if (FlxG.keys.justPressed.DOWN)
+			if (code == 1)
+				code = 2;
+			else
+				code == 0;
+
+		if (FlxG.keys.justPressed.LEFT)
+			if (code == 2)
+				code = 3;
+			else
+				code == 0;
+
+		if (FlxG.keys.justPressed.RIGHT)
+			if (code == 3)
+				code = 4;
+			else
+				code == 0;
+
+			if (pressedEnter && !transitioning && skippedIntro && code != 4)
 		{
 			#if !switch
 			NGio.unlockMedal(60960);
@@ -343,13 +368,26 @@ class TitleState extends MusicBeatState
 			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 		}
 
-		if (pressedEnter && !skippedIntro && initialized)
-		{
-			skipIntro();
+		else if (pressedEnter && !transitioning && skippedIntro && code == 4)
+			{
+				transitioning = true;
+	
+				PlayState.SONG = Song.loadFromJson('dripping', 'dripping');
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = 1;
+				PlayState.storyWeek = 1;
+				FlxG.camera.fade(FlxColor.WHITE, 0.5, false);
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxTransitionableState.skipNextTransOut = true;
+				new FlxTimer().start(1.5, function(tmr:FlxTimer)
+				{
+					LoadingState.loadAndSwitchState(new PlayState());
+				});
+			}
+	
+			super.update(elapsed);
 		}
-
-		super.update(elapsed);
-	}
 
 	function createCoolText(textArray:Array<String>)
 	{
