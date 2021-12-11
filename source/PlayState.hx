@@ -189,6 +189,12 @@ class PlayState extends MusicBeatState
 	var upperBoppers:FlxSprite;
 	var bottomBoppers:FlxSprite;
 	var santa:FlxSprite;
+	var amogla:FlxSprite;
+	var amoglas:FlxSprite; // repeating it since..... yeah... just dont do something with it
+	var groundy:FlxSprite;
+	var grounde:FlxSprite;
+	var sky:FlxSprite;
+	var ground:FlxSprite;
 
 	var fc:Bool = true;
 	var isCutscene:Bool = false;
@@ -209,7 +215,7 @@ class PlayState extends MusicBeatState
 	public static var campaignScore:Int = 0;
 
 	var defaultCamZoom:Float = 1.05;
-
+   
 	public static var daPixelZoom:Float = 6;
 
 	public static var theFunne:Bool = true;
@@ -720,23 +726,56 @@ class PlayState extends MusicBeatState
 								add(waveSpriteFG);
 						*/
 			}
-			case 'baseplate':
+			case 'baseplate': // hi kromersen
 				{
 						defaultCamZoom = 0.7;
 						curStage = 'baseplate';
-						var sky:FlxSprite = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/sky'));
-						sky.setGraphicSize(Std.int(sky.width * 1.5));
-						sky.antialiasing = true;
-						sky.scrollFactor.set(0.9, 0.9);
-						sky.active = false;
-						add(sky);						
+						amogla = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/sky'));
+						amogla.setGraphicSize(Std.int(amogla.width * 1.5));
+						amogla.antialiasing = true;
+						amogla.scrollFactor.set(0.9, 0.9);
+						amogla.active = false;
+						add(amogla);					
 						
-						var ground:FlxSprite = new FlxSprite(-240, 700).loadGraphic(Paths.image('brick/ground'));
+						ground = new FlxSprite(-240, 700).loadGraphic(Paths.image('brick/ground'));
 						ground.setGraphicSize(Std.int(ground.width * 1.5));
 						ground.antialiasing = true;
 						ground.scrollFactor.set(1, 1);
-						ground.active = false;
+						ground.active = false; 
 						add(ground);
+
+						sky = new FlxSprite(-50, -200).loadGraphic(Paths.image('brick/sfoth/sky'));
+						sky.setGraphicSize(Std.int(sky.width * 2));
+						sky.antialiasing = true;
+						sky.scrollFactor.set(0.9, 0.9);
+						sky.active = false;
+						sky.alpha = 0;
+						add(sky);						
+						
+						groundy = new FlxSprite(-50, 70).loadGraphic(Paths.image('brick/sfoth/ground'));
+						groundy.setGraphicSize(Std.int(groundy.width * 2));
+						groundy.antialiasing = true;
+						groundy.scrollFactor.set(1, 1);
+						groundy.active = false;
+						groundy.alpha = 0;
+						add(groundy);
+
+
+						amoglas = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/sky'));
+						amoglas.setGraphicSize(Std.int(amoglas.width * 1.5));
+						amoglas.antialiasing = true;
+						amoglas.scrollFactor.set(0.9, 0.9);
+						amoglas.active = false;
+						amoglas.alpha = 0;
+						add(amoglas);					
+						
+						grounde = new FlxSprite(-240, 700).loadGraphic(Paths.image('brick/ground'));
+						grounde.setGraphicSize(Std.int(grounde.width * 1.5));
+						grounde.antialiasing = true;
+						grounde.scrollFactor.set(1, 1);
+						grounde.active = false; 
+						grounde.alpha = 0;
+						add(grounde);
 				}
 
 				case 'killfully':
@@ -4155,18 +4194,27 @@ class PlayState extends MusicBeatState
                      }
                 }
 
-			if (curSong == 'dripping') 
+			if (curSong.toLowerCase() == 'dripping')
 				{
 					switch (curStep)
 					{
-						case 35:
-							chillouthimdontpulloutthenine();
-						case 145:
-							chillouthimdontpulloutthenine();
-						case 160:
-							chillouthimdontpulloutthenine();
+						case 256:
+							defaultCamZoom = 0.485;
+							FlxG.camera.flash(FlxColor.WHITE, 1);
+							amogla.visible = false;
+							ground.visible = false;
+							sky.alpha = 1;
+							groundy.alpha = 1;
+						case 300:
+							FlxG.camera.flash(FlxColor.WHITE, 1);
+							defaultCamZoom = 0.7;
+							sky.visible = false;
+							groundy.visible = false;
+							amoglas.alpha = 1;
+							grounde.alpha = 1;
+
 					 }
-				}
+				}		
 		super.stepHit();
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
