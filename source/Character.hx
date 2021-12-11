@@ -36,7 +36,7 @@ class Character extends FlxSprite
 				// the holy brick
 				// the holy brick
 				// the holy brick
-				tex = Paths.getSparrowAtlas('brick/brickin');
+				tex = Paths.getSparrowAtlas('brick/characters/brickin');
 				frames = tex;
 				animation.addByPrefix('idle', 'brick', 24);
 				addOffset('idle');
@@ -58,7 +58,7 @@ class Character extends FlxSprite
 
 			case 'him':
 				// HIM!!!!
-				tex = Paths.getSparrowAtlas('brick/him');
+				tex = Paths.getSparrowAtlas('brick/characters/him');
 				frames = tex;
 				animation.addByPrefix('idle', 'Him_IdleDance', 24);
 				animation.addByPrefix('singUP', 'Him_UpSing', 24);
@@ -82,7 +82,7 @@ class Character extends FlxSprite
 
 			case 'himdrip':
 				// HIM DRIP!!!
-				tex = Paths.getSparrowAtlas('brick/himdrip');
+				tex = Paths.getSparrowAtlas('brick/characters/himdrip');
 				frames = tex;
 				animation.addByPrefix('idle', 'idle', 24);
 				animation.addByPrefix('singUP', 'up', 24);
@@ -96,11 +96,33 @@ class Character extends FlxSprite
 				addOffset("singLEFT");
 				addOffset("singDOWN");
 
-				scale.set(0.5, 0.5);
+				scale.set(0.54, 0.54);
 				antialiasing = true;
 				
 
 				playAnim('idle');
+
+				case 'flyhimdrip':
+					// HIM DRIP!!!
+					tex = Paths.getSparrowAtlas('brick/characters/flyingdriphim');
+					frames = tex;
+					animation.addByPrefix('idle', 'idle', 24);
+					animation.addByPrefix('singUP', 'up', 24);
+					animation.addByPrefix('singRIGHT', 'right', 24);
+					animation.addByPrefix('singDOWN', 'down', 24);
+					animation.addByPrefix('singLEFT', 'left', 24);
+	
+					addOffset('idle');
+					addOffset("singUP");
+					addOffset("singRIGHT");
+					addOffset("singLEFT");
+					addOffset("singDOWN");
+	
+					scale.set(0.54, 0.54);
+					antialiasing = true;
+					
+	
+					playAnim('idle');
 	
 			case 'milkyway':
 				// a fuckin chocolate bar

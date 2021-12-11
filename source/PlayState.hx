@@ -744,7 +744,7 @@ class PlayState extends MusicBeatState
 						ground.active = false; 
 						add(ground);
 
-						sky = new FlxSprite(-50, -200).loadGraphic(Paths.image('brick/sfoth/sky'));
+						sky = new FlxSprite(50, -200).loadGraphic(Paths.image('brick/sfoth/sky'));
 						sky.setGraphicSize(Std.int(sky.width * 2));
 						sky.antialiasing = true;
 						sky.scrollFactor.set(0.9, 0.9);
@@ -752,7 +752,7 @@ class PlayState extends MusicBeatState
 						sky.alpha = 0;
 						add(sky);						
 						
-						groundy = new FlxSprite(-50, 70).loadGraphic(Paths.image('brick/sfoth/ground'));
+						groundy = new FlxSprite(50, 125).loadGraphic(Paths.image('brick/sfoth/ground'));
 						groundy.setGraphicSize(Std.int(groundy.width * 2));
 						groundy.antialiasing = true;
 						groundy.scrollFactor.set(1, 1);
@@ -924,8 +924,8 @@ class PlayState extends MusicBeatState
 				dad.x -= 370;
 				dad.y -= 30;
 			case 'himdrip':
-				dad.x -= 370;
-				dad.y -= 30;
+				dad.x -= 700;
+				dad.y = 65;
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -2699,10 +2699,19 @@ class PlayState extends MusicBeatState
 								dad.playAnim('singLEFT' + altAnim, true);
 						}
 
-						if (dad.curCharacter == 'him')
+						if (dad.curCharacter == 'him' || dad.curCharacter == 'flyhimdrip' )
 							{
 								// mmm funni health drain and hud shake lol
 								camHUD.shake(0.002);
+								if (health > 0.03)
+									health -= 0.014;
+								else
+									health = 0.02;
+							}
+
+						if (dad.curCharacter == 'himdrip')
+							{
+								// copied the code from above but idc lololol
 								if (health > 0.03)
 									health -= 0.014;
 								else
@@ -4191,16 +4200,16 @@ class PlayState extends MusicBeatState
 							defaultCamZoom = 1;
 						case 384:
 							defaultCamZoom = 0.7;
-                     }
+                    }
                 }
 
 			if (curSong.toLowerCase() == 'dripping')
 				{
 					switch (curStep)
 					{
-						case 256:
-							defaultCamZoom = 0.485;
+						case 256:							
 							FlxG.camera.flash(FlxColor.WHITE, 1);
+							defaultCamZoom = 0.485;
 							amogla.visible = false;
 							ground.visible = false;
 							sky.alpha = 1;
@@ -4216,11 +4225,11 @@ class PlayState extends MusicBeatState
 							FlxG.camera.flash(FlxColor.WHITE, 1);
 							defaultCamZoom = 0.485;
 							amoglas.visible = false;
-							groune.visible = false;
+							grounde.visible = false;
 							sky.alpha = 1;
 							groundy.alpha = 1;
-					 }
-				}		
+					}
+			}		
 		super.stepHit();
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
