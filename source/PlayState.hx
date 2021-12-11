@@ -4205,14 +4205,20 @@ class PlayState extends MusicBeatState
 							ground.visible = false;
 							sky.alpha = 1;
 							groundy.alpha = 1;
-						case 300:
+						case 635:
 							FlxG.camera.flash(FlxColor.WHITE, 1);
 							defaultCamZoom = 0.7;
 							sky.visible = false;
 							groundy.visible = false;
 							amoglas.alpha = 1;
 							grounde.alpha = 1;
-
+						case 767:
+							FlxG.camera.flash(FlxColor.WHITE, 1);
+							defaultCamZoom = 0.485;
+							amoglas.visible = false;
+							groune.visible = false;
+							sky.alpha = 1;
+							groundy.alpha = 1;
 					 }
 				}		
 		super.stepHit();
