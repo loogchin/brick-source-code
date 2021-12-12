@@ -188,11 +188,16 @@ class PlayState extends MusicBeatState
 	var songName:FlxText;
 	var upperBoppers:FlxSprite;
 	var bottomBoppers:FlxSprite;
+	var floating:Float = 0;
 	var santa:FlxSprite;
 	var amogla:FlxSprite;
 	var amoglas:FlxSprite; // repeating it since..... yeah... just dont do something with it
+	var amogloo:FlxSprite;
+	var amogler:FlxSprite;
 	var groundy:FlxSprite;
+	var groundye:FlxSprite;
 	var grounde:FlxSprite;
+	var groundeez:FlxSprite;
 	var sky:FlxSprite;
 	var ground:FlxSprite;
 
@@ -760,7 +765,6 @@ class PlayState extends MusicBeatState
 						groundy.alpha = 0;
 						add(groundy);
 
-
 						amoglas = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/sky'));
 						amoglas.setGraphicSize(Std.int(amoglas.width * 1.5));
 						amoglas.antialiasing = true;
@@ -776,6 +780,39 @@ class PlayState extends MusicBeatState
 						grounde.active = false; 
 						grounde.alpha = 0;
 						add(grounde);
+						//
+						amogloo = new FlxSprite(50, -200).loadGraphic(Paths.image('brick/sfoth/sky'));
+						amogloo.setGraphicSize(Std.int(amogloo.width * 2));
+						amogloo.antialiasing = true;
+						amogloo.scrollFactor.set(0.9, 0.9);
+						amogloo.active = false;
+						amogloo.alpha = 0;
+						add(amogloo);						
+						
+						groundye = new FlxSprite(50, 125).loadGraphic(Paths.image('brick/sfoth/ground'));
+						groundye.setGraphicSize(Std.int(groundye.width * 2));
+						groundye.antialiasing = true;
+						groundye.scrollFactor.set(1, 1);
+						groundye.active = false;
+						groundye.alpha = 0;
+						add(groundye);
+
+						amogler = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/sky'));
+						amogler.setGraphicSize(Std.int(amogler.width * 1.5));
+						amogler.antialiasing = true;
+						amogler.scrollFactor.set(0.9, 0.9);
+						amogler.active = false;
+						amogler.alpha = 0;
+						add(amogler);					
+						
+						groundeez = new FlxSprite(-240, 700).loadGraphic(Paths.image('brick/ground'));
+						groundeez.setGraphicSize(Std.int(groundeez.width * 1.5));
+						groundeez.antialiasing = true;
+						groundeez.scrollFactor.set(1, 1);
+						groundeez.active = false; 
+						groundeez.alpha = 0;
+						add(groundeez);
+						
 				}
 
 				case 'killfully':
@@ -1122,16 +1159,14 @@ class PlayState extends MusicBeatState
 
 		scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 50, 0, "", 20);
 
-		scoreTxt.screenCenter(X);
-
 		originalX = scoreTxt.x;
 
 
 		scoreTxt.scrollFactor.set();
 		
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
-
 		add(scoreTxt);
+		scoreTxt.screenCenter(X);
 
 		replayTxt = new FlxText(healthBarBG.x + healthBarBG.width / 2 - 75, healthBarBG.y + (PlayStateChangeables.useDownscroll ? 100 : -100), 0, "REPLAY", 20);
 		replayTxt.setFormat(Paths.font("vcr.ttf"), 42, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
@@ -1987,6 +2022,7 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		floating += 0.03;
 		#if !debug
 		perfectMode = false;
 		#end
@@ -2133,7 +2169,8 @@ class PlayState extends MusicBeatState
 
 		var lengthInPx = scoreTxt.textField.length * scoreTxt.frameHeight; // bad way but does more or less a better job
 
-		scoreTxt.x = (originalX - (lengthInPx / 2)) + 335;
+		//scoreTxt.x = (originalX - (lengthInPx / 2)) + 335;
+		scoreTxt.screenCenter(X);
 
 		if (controls.PAUSE && startedCountdown && canPause)
 		{
@@ -2178,6 +2215,12 @@ class PlayState extends MusicBeatState
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
+
+		if (dad.curCharacter == "flyhimdrip")
+			{
+				dad.y += Math.sin(floating) * 1.3;
+				dad.x += Math.cos(floating) * 1.8;
+			}
 
 		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
 		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
@@ -4080,6 +4123,19 @@ class PlayState extends MusicBeatState
 
 	var danced:Bool = false;
 
+	function changeDad(id:String) // totally not stolen code
+		{				
+			var olddadx = dad.x;
+			var olddady = dad.y + 15 ;
+			remove(dad);
+			dad = new Character(olddadx, olddady, id);
+			add(dad);
+			iconP2.animation.play(id);
+			trace('changedad', dad.curCharacter,dad);
+			trace("recent dad x", dad.x);
+			trace("recent dad y", dad.y);
+		}
+
 	function chillouthimdontpulloutthenine()
 	{
 		trace('chill out him dont pull out the nine');
@@ -4208,26 +4264,45 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 256:							
-							FlxG.camera.flash(FlxColor.WHITE, 1);
-							defaultCamZoom = 0.485;
+							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
+							defaultCamZoom = 0.515;
 							amogla.visible = false;
 							ground.visible = false;
 							sky.alpha = 1;
 							groundy.alpha = 1;
+							changeDad('flyhimdrip');
+							boyfriend.y += 100;
 						case 635:
-							FlxG.camera.flash(FlxColor.WHITE, 1);
+							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
 							defaultCamZoom = 0.7;
 							sky.visible = false;
 							groundy.visible = false;
 							amoglas.alpha = 1;
 							grounde.alpha = 1;
+							changeDad('himdrip');
+							boyfriend.y -= 100;
 						case 767:
-							FlxG.camera.flash(FlxColor.WHITE, 1);
-							defaultCamZoom = 0.485;
+							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
+							defaultCamZoom = 0.515;
 							amoglas.visible = false;
 							grounde.visible = false;
-							sky.alpha = 1;
-							groundy.alpha = 1;
+							amogloo.alpha = 1;
+							groundye.alpha = 1;
+							changeDad('flyhimdrip');
+							boyfriend.y += 100;
+						case 1152:
+							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
+							defaultCamZoom = 0.7;
+							amogloo.visible = false;
+							groundye.visible = false;
+							amogler.alpha = 1;
+							groundeez.alpha = 1;
+							changeDad('himdrip');
+							boyfriend.y -= 100;
+						case 1296:
+							FlxTween.tween(camHUD, {alpha: 0}, 3, {ease: FlxEase.quadInOut});
+						case 1445:
+							FlxTween.tween(camHUD, {alpha: 1}, 0.2, {ease: FlxEase.quadInOut});
 					}
 			}		
 		super.stepHit();

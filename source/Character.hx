@@ -36,7 +36,7 @@ class Character extends FlxSprite
 				// the holy brick
 				// the holy brick
 				// the holy brick
-				tex = Paths.getSparrowAtlas('brick/characters/brickin');
+				tex = Paths.getSparrowAtlas('characters/brickin');
 				frames = tex;
 				animation.addByPrefix('idle', 'brick', 24);
 				addOffset('idle');
@@ -58,7 +58,7 @@ class Character extends FlxSprite
 
 			case 'him':
 				// HIM!!!!
-				tex = Paths.getSparrowAtlas('brick/characters/him');
+				tex = Paths.getSparrowAtlas('characters/him');
 				frames = tex;
 				animation.addByPrefix('idle', 'Him_IdleDance', 24);
 				animation.addByPrefix('singUP', 'Him_UpSing', 24);
@@ -82,7 +82,7 @@ class Character extends FlxSprite
 
 			case 'himdrip':
 				// HIM DRIP!!!
-				tex = Paths.getSparrowAtlas('brick/characters/himdrip');
+				tex = Paths.getSparrowAtlas('characters/himdrip');
 				frames = tex;
 				animation.addByPrefix('idle', 'idle', 24);
 				animation.addByPrefix('singUP', 'up', 24);
@@ -104,7 +104,7 @@ class Character extends FlxSprite
 
 				case 'flyhimdrip':
 					// HIM DRIP!!!
-					tex = Paths.getSparrowAtlas('brick/characters/flyingdriphim');
+					tex = Paths.getSparrowAtlas('characters/flyingdriphim');
 					frames = tex;
 					animation.addByPrefix('idle', 'idle', 24);
 					animation.addByPrefix('singUP', 'up', 24);
