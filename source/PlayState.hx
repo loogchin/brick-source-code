@@ -731,10 +731,39 @@ class PlayState extends MusicBeatState
 								add(waveSpriteFG);
 						*/
 			}
-			case 'baseplate': // hi kromersen
+			case 'baseplate': // hi kromersen // hi ekical
 				{
 						defaultCamZoom = 0.7;
 						curStage = 'baseplate';
+
+						var images = []; // character wont lag while changing dad
+						var xml = [];
+						trace("caching images...");
+			
+						for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images/characters")))
+						{
+							if (!i.endsWith(".png"))
+								continue;
+							images.push(i);
+			
+							if (!i.endsWith(".xml"))
+								continue;
+							xml.push(i);
+						}
+						for (i in images)
+						{
+							var replaced = i.replace(".png","");
+							FlxG.bitmap.add(Paths.image("characters/" + replaced,"shared"));
+							trace("cached " + replaced);
+						}
+					
+					for (i in xml)
+						{
+							var replaced = i.replace(".xml","");
+							FlxG.bitmap.add(Paths.image("characters/" + replaced,"shared"));
+							trace("cached " + replaced);
+						}
+
 						amogla = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/sky'));
 						amogla.setGraphicSize(Std.int(amogla.width * 1.5));
 						amogla.antialiasing = true;
@@ -752,7 +781,7 @@ class PlayState extends MusicBeatState
 						sky = new FlxSprite(50, -200).loadGraphic(Paths.image('brick/sfoth/sky'));
 						sky.setGraphicSize(Std.int(sky.width * 2));
 						sky.antialiasing = true;
-						sky.scrollFactor.set(0.9, 0.9);
+						sky.scrollFactor.set(1.5, 1.3);
 						sky.active = false;
 						sky.alpha = 0;
 						add(sky);						
@@ -760,7 +789,7 @@ class PlayState extends MusicBeatState
 						groundy = new FlxSprite(50, 125).loadGraphic(Paths.image('brick/sfoth/ground'));
 						groundy.setGraphicSize(Std.int(groundy.width * 2));
 						groundy.antialiasing = true;
-						groundy.scrollFactor.set(1, 1);
+						groundy.scrollFactor.set(1.1, 1.6);
 						groundy.active = false;
 						groundy.alpha = 0;
 						add(groundy);
@@ -998,7 +1027,6 @@ class PlayState extends MusicBeatState
 				add(evilTrail);
 				// evilTrail.scrollFactor.set(1.1, 1.1);
 				}
-
 
 				boyfriend.x += 200;
 				boyfriend.y += 220;
@@ -2218,8 +2246,8 @@ class PlayState extends MusicBeatState
 
 		if (dad.curCharacter == "flyhimdrip")
 			{
-				dad.y += Math.sin(floating) * 1.3;
-				dad.x += Math.cos(floating) * 1.8;
+				dad.y += Math.sin(floating) * 1.5;
+				dad.x += Math.cos(floating) * 2.1;
 			}
 
 		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
@@ -4271,7 +4299,8 @@ class PlayState extends MusicBeatState
 							sky.alpha = 1;
 							groundy.alpha = 1;
 							changeDad('flyhimdrip');
-							boyfriend.y += 100;
+							boyfriend.y += 200;
+							gf.y += 215;
 						case 635:
 							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
 							defaultCamZoom = 0.7;
@@ -4280,7 +4309,8 @@ class PlayState extends MusicBeatState
 							amoglas.alpha = 1;
 							grounde.alpha = 1;
 							changeDad('himdrip');
-							boyfriend.y -= 100;
+							boyfriend.y -= 200;
+							gf.y -= 215;
 						case 767:
 							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
 							defaultCamZoom = 0.515;
@@ -4289,7 +4319,8 @@ class PlayState extends MusicBeatState
 							amogloo.alpha = 1;
 							groundye.alpha = 1;
 							changeDad('flyhimdrip');
-							boyfriend.y += 100;
+							boyfriend.y += 200;
+							gf.y += 215;
 						case 1152:
 							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
 							defaultCamZoom = 0.7;
@@ -4298,7 +4329,8 @@ class PlayState extends MusicBeatState
 							amogler.alpha = 1;
 							groundeez.alpha = 1;
 							changeDad('himdrip');
-							boyfriend.y -= 100;
+							boyfriend.y -= 200;
+							gf.y -= 215;
 						case 1296:
 							FlxTween.tween(camHUD, {alpha: 0}, 3, {ease: FlxEase.quadInOut});
 						case 1445:

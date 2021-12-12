@@ -90,11 +90,11 @@ class Character extends FlxSprite
 				animation.addByPrefix('singDOWN', 'down', 24);
 				animation.addByPrefix('singLEFT', 'left', 24);
 
-				addOffset('idle');
-				addOffset("singUP");
-				addOffset("singRIGHT");
-				addOffset("singLEFT");
-				addOffset("singDOWN");
+				addOffset('idle', 0, -70);
+				addOffset("singUP", 130, -40);
+				addOffset("singRIGHT", 30, -70);
+				addOffset("singLEFT", 80, -80);
+				addOffset("singDOWN", 20, -90);
 
 				scale.set(0.54, 0.54);
 				antialiasing = true;
