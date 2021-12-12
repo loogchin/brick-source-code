@@ -102,15 +102,19 @@ class StoryMenuState extends MusicBeatState {
 		add(daButton);
 
 		var brickSpeen = new FlxSprite(-315, -100);
-		brickSpeen.frames = Paths.getSparrowAtlas('brick/brickin', 'shared');
+		brickSpeen.frames = Paths.getSparrowAtlas('characters/brickin', 'shared');
 		brickSpeen.scrollFactor.x = 0;
 		brickSpeen.scrollFactor.y = 0;
 		brickSpeen.antialiasing = true;
 		brickSpeen.animation.addByPrefix('speen', 'brick', 24);
 		brickSpeen.animation.play('speen');
+		brickSpeen.scale.set(0.85, 0.85);
 		brickSpeen.updateHitbox();
 		add(brickSpeen);
-		brickSpeen.scale.set(0.85, 0.85);
+
+		var pissLabel = new FlxText(940,330,256,'(the menu is not broken you have to use your mouse to select stuff)');
+		pissLabel.scale.set(1.2, 1.2);
+		add(pissLabel);
 
 		persistentUpdate = persistentDraw = true;
 

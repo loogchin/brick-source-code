@@ -781,7 +781,7 @@ class PlayState extends MusicBeatState
 						sky = new FlxSprite(50, -200).loadGraphic(Paths.image('brick/sfoth/sky'));
 						sky.setGraphicSize(Std.int(sky.width * 2));
 						sky.antialiasing = true;
-						sky.scrollFactor.set(1.5, 1.3);
+						sky.scrollFactor.set(1, 1);
 						sky.active = false;
 						sky.alpha = 0;
 						add(sky);						
@@ -789,7 +789,7 @@ class PlayState extends MusicBeatState
 						groundy = new FlxSprite(50, 125).loadGraphic(Paths.image('brick/sfoth/ground'));
 						groundy.setGraphicSize(Std.int(groundy.width * 2));
 						groundy.antialiasing = true;
-						groundy.scrollFactor.set(1.1, 1.6);
+						groundy.scrollFactor.set(1, 1);
 						groundy.active = false;
 						groundy.alpha = 0;
 						add(groundy);
@@ -813,7 +813,7 @@ class PlayState extends MusicBeatState
 						amogloo = new FlxSprite(50, -200).loadGraphic(Paths.image('brick/sfoth/sky'));
 						amogloo.setGraphicSize(Std.int(amogloo.width * 2));
 						amogloo.antialiasing = true;
-						amogloo.scrollFactor.set(0.9, 0.9);
+						amogloo.scrollFactor.set(1, 1);
 						amogloo.active = false;
 						amogloo.alpha = 0;
 						add(amogloo);						
@@ -841,7 +841,6 @@ class PlayState extends MusicBeatState
 						groundeez.active = false; 
 						groundeez.alpha = 0;
 						add(groundeez);
-						
 				}
 
 				case 'killfully':
@@ -991,7 +990,8 @@ class PlayState extends MusicBeatState
 				dad.y -= 30;
 			case 'himdrip':
 				dad.x -= 700;
-				dad.y = 65;
+				dad.y = 40;
+				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y - 100);
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -4293,7 +4293,7 @@ class PlayState extends MusicBeatState
 					{
 						case 256:							
 							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
-							defaultCamZoom = 0.515;
+							defaultCamZoom = 0.685;
 							amogla.visible = false;
 							ground.visible = false;
 							sky.alpha = 1;
@@ -4311,9 +4311,10 @@ class PlayState extends MusicBeatState
 							changeDad('himdrip');
 							boyfriend.y -= 200;
 							gf.y -= 215;
+							dad.y - 10;
 						case 767:
 							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
-							defaultCamZoom = 0.515;
+							defaultCamZoom = 0.685;
 							amoglas.visible = false;
 							grounde.visible = false;
 							amogloo.alpha = 1;
