@@ -2067,12 +2067,6 @@ class PlayState extends MusicBeatState
 		perfectMode = false;
 		#end
 
-		if (FlxG.keys.pressed.SPACE)
-			{
-				dodgeMechanic = true;
-				boyfriend.playAnim('dodge', true);
-			}
-
 		if (PlayStateChangeables.botPlay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
 
@@ -2148,6 +2142,7 @@ class PlayState extends MusicBeatState
 			{
 				if (FlxG.keys.justPressed.SPACE)
 					{
+						dodgeMechanic = true;
 						boyfriend.playAnim('dodge', true); 
 					}		
 			}
@@ -4336,8 +4331,8 @@ class PlayState extends MusicBeatState
 							amoglas.alpha = 1;
 							grounde.alpha = 1;
 							changeDad('himdrip');
-							boyfriend.y -= 300;
-							gf.y -= 315;
+							boyfriend.y -= 250;
+							gf.y -= 265;
 						case 767:
 							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
 							defaultCamZoom = 0.685;
