@@ -39,11 +39,9 @@ class MainMenuState extends MusicBeatState
 	public static var firstStart:Bool = true;
 
 	var curCode:String = '';
-	var curCode2:String = '';
 	var codeInt = 0;
 	var codeInt2 = 0;
 	var neededCode:Array<String> = ['H', 'I', 'M'];
-	var neededCode2:Array<String> = ['D', 'R', 'I', 'P', 'P', 'Y', 'H', 'I', 'M'];
 
 	public static var nightly:String = "";
 
@@ -183,16 +181,13 @@ class MainMenuState extends MusicBeatState
 			if (neededCode.contains(curKey) && neededCode[codeInt] == curKey)
 			{
 				curCode += curKey;
-				curCode2 += curKey;
 				codeInt++;
 				codeInt2++;
 			}
 			else
 			{
 				curCode = '';
-				curCode2 = '';
 				codeInt = 0;
-				codeInt2 = 0;
 			}
 		}
 
@@ -211,23 +206,6 @@ class MainMenuState extends MusicBeatState
 			{
 				curCode = 'HIM';
 				codeInt = 0;
-			} 
-
-		if (curCode2 == 'DRIPPYHIM')
-			{
-				PlayState.SONG = Song.loadFromJson('dripping', 'dripping');
-				PlayState.isStoryMode = false;
-				PlayState.storyDifficulty = 3;
-				new FlxTimer().start(0.07, function(tmr:FlxTimer)
-					{
-						LoadingState.loadAndSwitchState(new PlayState()); 
-					});
-			}
-
-		if (codeInt2 == 10)
-			{
-				curCode2 = 'DRIPPYHIM';
-				codeInt2 = 0;
 			} 
 
 		if (FlxG.sound.music.volume < 0.8)
