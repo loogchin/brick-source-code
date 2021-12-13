@@ -126,6 +126,12 @@ class PlayState extends MusicBeatState
 	public static var gf:Character;
 	public static var boyfriend:Boyfriend;
 
+	public static var dadnoteMovementXoffset:Int = 0;
+	public static var dadnoteMovementYoffset:Int = 0;
+
+	public static var bfnoteMovementXoffset:Int = 0;
+	public static var bfnoteMovementYoffset:Int = 0;
+
 	public var notes:FlxTypedGroup<Note>;
 	private var unspawnNotes:Array<Note> = [];
 
@@ -349,6 +355,12 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
+
+		dadnoteMovementXoffset = 0;
+		dadnoteMovementYoffset = 0;
+
+		bfnoteMovementXoffset = 0;
+		bfnoteMovementYoffset = 0;
 
 		FlxCamera.defaultCameras = [camGame];
 
@@ -779,7 +791,7 @@ class PlayState extends MusicBeatState
 						add(ground);
 
 						sky = new FlxSprite(50, -200).loadGraphic(Paths.image('brick/sfoth/sky'));
-						sky.setGraphicSize(Std.int(sky.width * 2));
+						sky.setGraphicSize(Std.int(sky.width * 2.5));
 						sky.antialiasing = true;
 						sky.scrollFactor.set(1, 1);
 						sky.active = false;
@@ -787,7 +799,7 @@ class PlayState extends MusicBeatState
 						add(sky);						
 						
 						groundy = new FlxSprite(50, 125).loadGraphic(Paths.image('brick/sfoth/ground'));
-						groundy.setGraphicSize(Std.int(groundy.width * 2));
+						groundy.setGraphicSize(Std.int(groundy.width * 2.5));
 						groundy.antialiasing = true;
 						groundy.scrollFactor.set(1, 1);
 						groundy.active = false;
@@ -811,7 +823,7 @@ class PlayState extends MusicBeatState
 						add(grounde);
 						//
 						amogloo = new FlxSprite(50, -200).loadGraphic(Paths.image('brick/sfoth/sky'));
-						amogloo.setGraphicSize(Std.int(amogloo.width * 2));
+						amogloo.setGraphicSize(Std.int(amogloo.width * 2.5));
 						amogloo.antialiasing = true;
 						amogloo.scrollFactor.set(1, 1);
 						amogloo.active = false;
@@ -819,7 +831,7 @@ class PlayState extends MusicBeatState
 						add(amogloo);						
 						
 						groundye = new FlxSprite(50, 125).loadGraphic(Paths.image('brick/sfoth/ground'));
-						groundye.setGraphicSize(Std.int(groundye.width * 2));
+						groundye.setGraphicSize(Std.int(groundye.width * 2.5));
 						groundye.antialiasing = true;
 						groundye.scrollFactor.set(1, 1);
 						groundye.active = false;
@@ -2497,7 +2509,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(dad.getMidpoint().x + 150 + offsetX, dad.getMidpoint().y - 100 + offsetY);
+				camFollow.setPosition(dad.getMidpoint().x + 150 + dadnoteMovementXoffset, dad.getMidpoint().y - 100 + offsetY + dadnoteMovementYoffset);
 				#if windows
 				if (luaModchart != null)
 					luaModchart.executeState('playerTwoTurn', []);
@@ -2539,7 +2551,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.x - 200 + offsetX, boyfriend.y + 100 + offsetY);
+				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX + bfnoteMovementXoffset, boyfriend.getMidpoint().y - 100 + offsetY + bfnoteMovementYoffset);
 
 				#if windows
 				if (luaModchart != null)
@@ -2558,6 +2570,12 @@ class PlayState extends MusicBeatState
 					case 'schoolEvil':
 						camFollow.x = boyfriend.getMidpoint().x - 200;
 						camFollow.y = boyfriend.getMidpoint().y - 200;
+					case 'baseplate':
+						camFollow.x = boyfriend.getMidpoint().x - 150 + bfnoteMovementXoffset;
+						camFollow.y = boyfriend.getMidpoint().y - 200 + bfnoteMovementYoffset;
+					case 'killfully':
+						camFollow.x = boyfriend.getMidpoint().x - 150 + bfnoteMovementXoffset;
+						camFollow.y = boyfriend.getMidpoint().y - 200 + bfnoteMovementYoffset;
 				}
 			}
 		}
@@ -2758,17 +2776,21 @@ class PlayState extends MusicBeatState
 								altAnim = '-alt';
 						}
 	
-						switch (Math.abs(daNote.noteData))
-						{
-							case 2:
-								dad.playAnim('singUP' + altAnim, true);
-							case 3:
-								dad.playAnim('singRIGHT' + altAnim, true);
-							case 1:
-								dad.playAnim('singDOWN' + altAnim, true);
-							case 0:
-								dad.playAnim('singLEFT' + altAnim, true);
-						}
+							switch (Math.abs(daNote.noteData))
+							{
+								case 2:
+									dad.playAnim('singUP' + altAnim, true);
+									dadnoteMovementYoffset = -25;
+								case 3:
+									dad.playAnim('singRIGHT' + altAnim, true);
+									dadnoteMovementXoffset = 25;
+								case 1:
+									dad.playAnim('singDOWN' + altAnim, true);
+									dadnoteMovementYoffset = 25;
+								case 0:
+									dad.playAnim('singLEFT' + altAnim, true);
+									dadnoteMovementXoffset = -25;
+							}
 
 						if (dad.curCharacter == 'him' || dad.curCharacter == 'flyhimdrip' )
 							{
@@ -3061,7 +3083,6 @@ class PlayState extends MusicBeatState
 								LoadingState.loadAndSwitchState(new PlayState());
 							}
 						}
-	
 
 					PlayState.SONG = Song.loadFromJson(poop, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
@@ -4003,17 +4024,23 @@ class PlayState extends MusicBeatState
 						totalNotesHit += 1;
 	
 
-					switch (note.noteData)
-					{
-						case 2:
-							boyfriend.playAnim('singUP', true);
-						case 3:
-							boyfriend.playAnim('singRIGHT', true);
-						case 1:
-							boyfriend.playAnim('singDOWN', true);
-						case 0:
-							boyfriend.playAnim('singLEFT', true);
-					}
+
+						switch (note.noteData)
+						{
+							case 2:
+								boyfriend.playAnim('singUP', true);
+								bfnoteMovementYoffset = -25;
+							case 3:
+								boyfriend.playAnim('singRIGHT', true);
+								bfnoteMovementXoffset = 25;
+							case 1:
+								boyfriend.playAnim('singDOWN', true);
+								bfnoteMovementYoffset = 25;
+							case 0:
+								boyfriend.playAnim('singLEFT', true);
+								bfnoteMovementXoffset = -25;
+						}
+						
 		
 					#if windows
 					if (luaModchart != null)
@@ -4299,8 +4326,8 @@ class PlayState extends MusicBeatState
 							sky.alpha = 1;
 							groundy.alpha = 1;
 							changeDad('flyhimdrip');
-							boyfriend.y += 200;
-							gf.y += 215;
+							boyfriend.y += 300;
+							gf.y += 315;
 						case 635:
 							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
 							defaultCamZoom = 0.7;
@@ -4309,9 +4336,8 @@ class PlayState extends MusicBeatState
 							amoglas.alpha = 1;
 							grounde.alpha = 1;
 							changeDad('himdrip');
-							boyfriend.y -= 200;
-							gf.y -= 215;
-							dad.y - 10;
+							boyfriend.y -= 300;
+							gf.y -= 315;
 						case 767:
 							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
 							defaultCamZoom = 0.685;
@@ -4320,8 +4346,8 @@ class PlayState extends MusicBeatState
 							amogloo.alpha = 1;
 							groundye.alpha = 1;
 							changeDad('flyhimdrip');
-							boyfriend.y += 200;
-							gf.y += 215;
+							boyfriend.y += 300;
+							gf.y += 315;
 						case 1152:
 							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
 							defaultCamZoom = 0.7;
@@ -4330,8 +4356,8 @@ class PlayState extends MusicBeatState
 							amogler.alpha = 1;
 							groundeez.alpha = 1;
 							changeDad('himdrip');
-							boyfriend.y -= 200;
-							gf.y -= 215;
+							boyfriend.y -= 300;
+							gf.y -= 315;
 						case 1296:
 							FlxTween.tween(camHUD, {alpha: 0}, 3, {ease: FlxEase.quadInOut});
 						case 1445:
