@@ -101,7 +101,7 @@ class StoryMenuState extends MusicBeatState {
 		daButton.antialiasing = true;
 		add(daButton);
 
-		var brickSpeen = new FlxSprite(-315, -100);
+		var brickSpeen = new FlxSprite(-290, -70);
 		brickSpeen.frames = Paths.getSparrowAtlas('characters/brickin', 'shared');
 		brickSpeen.scrollFactor.x = 0;
 		brickSpeen.scrollFactor.y = 0;

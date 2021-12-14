@@ -29,6 +29,7 @@ class FreeplayState extends MusicBeatState
 	var scoreText:FlxText;
 	var comboText:FlxText;
 	var diffText:FlxText;
+	var fdiffText:FlxText;
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 	var combo:String = '';
@@ -108,6 +109,12 @@ class FreeplayState extends MusicBeatState
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		diffText.font = scoreText.font;
 		add(diffText);
+
+		fdiffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "GAMING", 24);
+		fdiffText.font = scoreText.font;
+		fdiffText.visible = false;
+		fdiffText.color = 0xFF5594d9;
+		add(fdiffText);
 
 		comboText = new FlxText(diffText.x + 100, diffText.y, 0, "", 24);
 		comboText.font = diffText.font;
@@ -230,6 +237,17 @@ class FreeplayState extends MusicBeatState
 			FlxG.switchState(new MainMenuState());
 		}
 
+		if (songs[curSelected].songName == 'milkyways')
+			{
+				fdiffText.visible = true;
+				diffText.visible = false;
+			}
+			else
+			{
+				fdiffText.visible = false;
+				diffText.visible = true;
+			}
+
 		if (accepted)
 		{
 			// adjusting the song name to be compatible
@@ -244,8 +262,17 @@ class FreeplayState extends MusicBeatState
 			var poop:String = Highscore.formatSong(songFormat, curDifficulty);
 
 			trace(poop);
-			
-			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName);
+
+			if (songs[curSelected].songName == 'milkyways')
+				{
+					PlayState.storyDifficulty = 1;
+					PlayState.SONG = Song.loadFromJson(poop, 'milkyways');
+				}
+			else
+				{
+					PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName);
+				}
+
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
 			PlayState.storyWeek = songs[curSelected].week;
@@ -255,13 +282,23 @@ class FreeplayState extends MusicBeatState
 	}
 
 	function changeDiff(change:Int = 0)
-	{
-		curDifficulty += change;
-
-		if (curDifficulty < 0)
-			curDifficulty = 3;
-		if (curDifficulty > 3)
-			curDifficulty = 0;
+		{
+			curDifficulty += change;
+	
+			if (songs[curSelected].songName.contains("milky"))
+			{
+				if (curDifficulty < 1)
+					curDifficulty = 1;
+				if (curDifficulty > 1)
+					curDifficulty = 1;
+			}
+			else
+			{
+				if (curDifficulty < 0)
+					curDifficulty = 3;
+				if (curDifficulty > 3)
+					curDifficulty = 0;
+			}
 
 		// adjusting the highscore song name to be compatible (changeDiff)
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");

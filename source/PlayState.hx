@@ -2546,7 +2546,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX + bfnoteMovementXoffset, boyfriend.getMidpoint().y - 100 + offsetY + bfnoteMovementYoffset);
+				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX + bfnoteMovementXoffset, boyfriend.getMidpoint().y - 200 + offsetY + bfnoteMovementYoffset);
 
 				#if windows
 				if (luaModchart != null)
@@ -2567,10 +2567,10 @@ class PlayState extends MusicBeatState
 						camFollow.y = boyfriend.getMidpoint().y - 200;
 					case 'baseplate':
 						camFollow.x = boyfriend.getMidpoint().x - 150 + bfnoteMovementXoffset;
-						camFollow.y = boyfriend.getMidpoint().y - 200 + bfnoteMovementYoffset;
+						camFollow.y = boyfriend.getMidpoint().y - 150 + bfnoteMovementYoffset;
 					case 'killfully':
 						camFollow.x = boyfriend.getMidpoint().x - 150 + bfnoteMovementXoffset;
-						camFollow.y = boyfriend.getMidpoint().y - 200 + bfnoteMovementYoffset;
+						camFollow.y = boyfriend.getMidpoint().y - 150 + bfnoteMovementYoffset;
 				}
 			}
 		}
