@@ -17,11 +17,11 @@ class HealthIcon extends FlxSprite
 
 		antialiasing = true;
 		//brick mod
-		animation.add('brick', [24, 25], 0, false, isPlayer);
-		animation.add('madbrick', [26, 27], 0, false, isPlayer);
-		animation.add('him', [10, 11, 26], 0, false, isPlayer);		
-		animation.add('himdrip', [10, 11, 26], 0, false, isPlayer);
-		animation.add('flyhimdrip', [10, 11, 26], 0, false, isPlayer);
+		animation.add('brick', [24, 25, 28], 0, false, isPlayer);
+		animation.add('madbrick', [26, 27, 29], 0, false, isPlayer);
+		animation.add('him', [10, 11, 12], 0, false, isPlayer);		
+		animation.add('himdrip', [10, 11, 12], 0, false, isPlayer);
+		animation.add('flyhimdrip', [10, 11, 12], 0, false, isPlayer);
 		animation.add('bf', [0, 1, 2], 0, false, isPlayer);		
 		animation.add('gf', [16], 0, false, isPlayer);
 		//boring shit

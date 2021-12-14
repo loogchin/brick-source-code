@@ -996,14 +996,15 @@ class PlayState extends MusicBeatState
 				dad.y -= 176.75;
 			case 'madbrick':
 				dad.x -= 733.4;
-				dad.y -= 176.75;
+				dad.y -= 180;
+				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y + 10);
 			case 'him':
 				dad.x -= 370;
 				dad.y -= 30;
 			case 'himdrip':
 				dad.x -= 700;
-				dad.y = 40;
-				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y - 100);
+				dad.y = 1;
+				camPos.set(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y + 10);
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -4314,7 +4315,7 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 256:							
-							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
+							FlxG.camera.flash(FlxColor.WHITE, 2); //sfoth
 							defaultCamZoom = 0.685;
 							amogla.visible = false;
 							ground.visible = false;
@@ -4324,17 +4325,18 @@ class PlayState extends MusicBeatState
 							boyfriend.y += 300;
 							gf.y += 315;
 						case 635:
-							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
+							FlxG.camera.flash(FlxColor.WHITE, 5); //baseplate
 							defaultCamZoom = 0.7;
 							sky.visible = false;
 							groundy.visible = false;
 							amoglas.alpha = 1;
 							grounde.alpha = 1;
 							changeDad('himdrip');
-							boyfriend.y -= 250;
-							gf.y -= 265;
+							boyfriend.y -= 300;
+							gf.y -= 315;
+							dad.y = 1;
 						case 767:
-							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
+							FlxG.camera.flash(FlxColor.WHITE, 2); //sfoth
 							defaultCamZoom = 0.685;
 							amoglas.visible = false;
 							grounde.visible = false;
@@ -4344,7 +4346,7 @@ class PlayState extends MusicBeatState
 							boyfriend.y += 300;
 							gf.y += 315;
 						case 1152:
-							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
+							FlxG.camera.flash(FlxColor.WHITE, 5); //baseplate
 							defaultCamZoom = 0.7;
 							amogloo.visible = false;
 							groundye.visible = false;
@@ -4353,6 +4355,7 @@ class PlayState extends MusicBeatState
 							changeDad('himdrip');
 							boyfriend.y -= 300;
 							gf.y -= 315;
+							dad.y = 1;
 						case 1296:
 							FlxTween.tween(camHUD, {alpha: 0}, 3, {ease: FlxEase.quadInOut});
 						case 1445:
