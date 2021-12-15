@@ -4301,12 +4301,31 @@ class PlayState extends MusicBeatState
                     {
                         case 15:
 							chillouthimdontpulloutthenine();
+						case 320:
+							chillouthimdontpulloutthenine();
 						case 377:
 							defaultCamZoom = 0.82;
 						case 380:
 							defaultCamZoom = 1;
+							chillouthimdontpulloutthenine();
 						case 384:
 							defaultCamZoom = 0.7;
+						case 784:
+							chillouthimdontpulloutthenine();
+						case 992:
+							chillouthimdontpulloutthenine();
+						case 1328:
+							chillouthimdontpulloutthenine();
+						case 1472:
+							chillouthimdontpulloutthenine();
+						case 1728:
+							chillouthimdontpulloutthenine();
+						case 2016:
+							chillouthimdontpulloutthenine();
+						case 2020:
+							chillouthimdontpulloutthenine();
+						case 2200:
+							chillouthimdontpulloutthenine();
                     }
                 }
 

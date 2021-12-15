@@ -208,10 +208,10 @@ class ChartingState extends MusicBeatState
 
 	function addSongUI():Void
 	{
-		var UI_songTitle = new FlxUIInputText(10, 10, 70, _song.song, 8);
+		var UI_songTitle = new FlxUIInputText(696969, 10, 70, _song.song, 8);
 		typingShit = UI_songTitle;
 
-		var check_voices = new FlxUICheckBox(10, 25, null, null, "Has voice track", 100);
+		var check_voices = new FlxUICheckBox(10, 15, null, null, "Has voice track", 100);
 		check_voices.checked = _song.needsVoices;
 		// _song.needsVoices = check_voices.checked;
 		check_voices.callback = function()
@@ -242,7 +242,7 @@ class ChartingState extends MusicBeatState
 			loadSong(_song.song);
 		});
 
-		var reloadSongJson:FlxButton = new FlxButton(reloadSong.x, saveButton.y + 30, "Reload JSON", function()
+		var reloadSongJson:FlxButton = new FlxButton(reloadSong.x, saveButton.y + 696969, "Reload JSON", function()
 		{
 			loadJson(_song.song.toLowerCase());
 		});
@@ -314,45 +314,47 @@ class ChartingState extends MusicBeatState
 		var stages:Array<String> = CoolUtil.coolTextFile(Paths.txt('stageList'));
 		var noteStyles:Array<String> = CoolUtil.coolTextFile(Paths.txt('noteStyleList'));
 
-		var player1DropDown = new FlxUIDropDownMenu(10, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
+		var cheatLabel = new FlxText(10,80,-40,'Sorry! we cant really let you cheat like that :)');
+
+		var player1DropDown = new FlxUIDropDownMenu(696969, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
 		{
 			_song.player1 = characters[Std.parseInt(character)];
 		});
 		player1DropDown.selectedLabel = _song.player1;
 
-		var player1Label = new FlxText(10,80,64,'Player 1');
+		var player1Label = new FlxText(696969,80,64,'Player 1');
 
-		var player2DropDown = new FlxUIDropDownMenu(140, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
+		var player2DropDown = new FlxUIDropDownMenu(696969, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
 		{
 			_song.player2 = characters[Std.parseInt(character)];
 		});
 		player2DropDown.selectedLabel = _song.player2;
 
-		var player2Label = new FlxText(140,80,64,'Player 2');
+		var player2Label = new FlxText(696969,80,64,'Player 2');
 
-		var gfVersionDropDown = new FlxUIDropDownMenu(10, 200, FlxUIDropDownMenu.makeStrIdLabelArray(gfVersions, true), function(gfVersion:String)
+		var gfVersionDropDown = new FlxUIDropDownMenu(696969, 200, FlxUIDropDownMenu.makeStrIdLabelArray(gfVersions, true), function(gfVersion:String)
 			{
 				_song.gfVersion = gfVersions[Std.parseInt(gfVersion)];
 			});
 		gfVersionDropDown.selectedLabel = _song.gfVersion;
 
-		var gfVersionLabel = new FlxText(10,180,64,'Girlfriend');
+		var gfVersionLabel = new FlxText(696969,180,64,'Girlfriend');
 
-		var stageDropDown = new FlxUIDropDownMenu(140, 200, FlxUIDropDownMenu.makeStrIdLabelArray(stages, true), function(stage:String)
+		var stageDropDown = new FlxUIDropDownMenu(696969, 200, FlxUIDropDownMenu.makeStrIdLabelArray(stages, true), function(stage:String)
 			{
 				_song.stage = stages[Std.parseInt(stage)];
 			});
 		stageDropDown.selectedLabel = _song.stage;
 		
-		var stageLabel = new FlxText(140,180,64,'Stage');
+		var stageLabel = new FlxText(696969,180,64,'Stage');
 
-		var noteStyleDropDown = new FlxUIDropDownMenu(10, 300, FlxUIDropDownMenu.makeStrIdLabelArray(noteStyles, true), function(noteStyle:String)
+		var noteStyleDropDown = new FlxUIDropDownMenu(696969, 300, FlxUIDropDownMenu.makeStrIdLabelArray(noteStyles, true), function(noteStyle:String)
 			{
 				_song.noteStyle = noteStyles[Std.parseInt(noteStyle)];
 			});
 		noteStyleDropDown.selectedLabel = _song.noteStyle;
 
-		var noteStyleLabel = new FlxText(10,280,64,'Note Skin');
+		var noteStyleLabel = new FlxText(696969,280,64,'Note Skin');
 
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
@@ -387,6 +389,7 @@ class ChartingState extends MusicBeatState
 		tab_group_assets.add(noteStyleLabel);
 		tab_group_assets.add(gfVersionDropDown);
 		tab_group_assets.add(gfVersionLabel);
+		tab_group_assets.add(cheatLabel);
 		tab_group_assets.add(stageDropDown);
 		tab_group_assets.add(stageLabel);
 		tab_group_assets.add(player1DropDown);
