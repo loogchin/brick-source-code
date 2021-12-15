@@ -4187,43 +4187,46 @@ class PlayState extends MusicBeatState
 			trace("recent dad y", dad.y);
 		}
 
-	function chillouthimdontpulloutthenine()
-	{
-		trace('chill out him dont pull out the nine');
-		new FlxTimer().start(2.5, function(tmr:FlxTimer)
+		function chillouthimdontpulloutthenine()
 			{
-				warningText.visible = true;
-			});
-		new FlxTimer().start(2.98, function(tmr:FlxTimer)
-			{
-				warningText.visible = false;
-			});
-		new FlxTimer().start(3, function(tmr:FlxTimer)
-			{
-				dad.playAnim('Shoot', true);
-				trace('holy shit he pulled out the nine');
-			});
-		new FlxTimer().start(3, function(tmr:FlxTimer) {
-			if (dodgeMechanic == true)
-				{
-				health += 0.15;
-				trace('chad');
-				}
-			});
-		new FlxTimer().start(3, function(tmr:FlxTimer) {
-			if (dodgeMechanic == false)
-				{
-				trace('loser');
-				}
-				new FlxTimer().start(0.2, function(tmr:FlxTimer) {
-					if (dodgeMechanic == false)
+				trace('chill out him dont pull out the nine');
+				new FlxTimer().start(2.5, function(tmr:FlxTimer)
+					{
+						warningText.visible = true;
+					});
+				new FlxTimer().start(2.98, function(tmr:FlxTimer)
+					{
+						warningText.visible = false;
+					});
+				new FlxTimer().start(3, function(tmr:FlxTimer)
+					{
+						dad.playAnim('Shoot', true);
+						trace('holy shit he pulled out the nine');
+					});
+				new FlxTimer().start(3, function(tmr:FlxTimer) {
+					if (dodgeMechanic == true)
 						{
-						health = 0;
-						trace('loser');
+						health += 0.15;
+						trace('how did you dodge that?');
 						}
 					});
-			});
-	}
+				new FlxTimer().start(3, function(tmr:FlxTimer) {
+					if (dodgeMechanic == false)
+						{
+						trace('man youre dead');
+						}
+						new FlxTimer().start(0.2, function(tmr:FlxTimer) {
+							if (dodgeMechanic == false)
+								{
+								health = 0;
+								trace('man youre dead');
+								}
+							});
+					});
+				new FlxTimer().start(3.1, function(tmr:FlxTimer) {
+					dodgeMechanic = false;
+				});
+			}
 
 	override function stepHit()
 	{

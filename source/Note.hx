@@ -100,7 +100,7 @@ class Note extends FlxSprite
 					updateHitbox();
 				default:
 						frames = Paths.getSparrowAtlas('NOTE_assets');
-						var fuckingSussy = Paths.getSparrowAtlas('brick/NOTE_roblox', 'shared');
+						var fuckingSussy = Paths.getSparrowAtlas('brick/NOTE_Roblox_assets', 'shared');
 						for(amogus in fuckingSussy.frames)
 							{
 								this.frames.pushFrame(amogus);
@@ -110,7 +110,7 @@ class Note extends FlxSprite
 						{
 							case 2:
 							{
-								frames = Paths.getSparrowAtlas('brick/NOTE_roblox', 'shared'); /*checking to make sure its looking in shared*/
+								frames = Paths.getSparrowAtlas('brick/NOTE_Roblox_assets', 'shared'); /*checking to make sure its looking in shared*/
 								animation.addByPrefix('greenScroll', 'green0');
 								animation.addByPrefix('redScroll', 'red0');
 								animation.addByPrefix('blueScroll', 'blue0');
