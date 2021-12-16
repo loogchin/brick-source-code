@@ -73,15 +73,27 @@ import openfl.filters.ColorMatrixFilter;
 #if windows
 import Discord.DiscordClient;
 #end
-#if windows
+#if sys
 import Sys;
 import sys.FileSystem;
+#end
+#if mobileC
+import ui.Mobilecontrols;
+#end
+#if mobileC
+import ui.Mobilecontrols;
+import ui.FlxVirtualPad;
 #end
 
 using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	#if mobileC
+	var mcontrols:Mobilecontrols; 
+	var _pad:FlxVirtualPad;
+	#end	
+
 	public static var instance:PlayState = null;
 
 	public static var curStage:String = '';
@@ -415,6 +427,12 @@ class PlayState extends MusicBeatState
 				//i should check if its stage (but this is when none is found in chart anyway)
 			}
 		} else {stageCheck = SONG.stage;}
+
+		if (FlxG.save.data.noteSplashes){
+			var preloadidk:FlxSprite = new FlxSprite(-500, -100).loadGraphic(Paths.image('noteSplashes', 'shared'));
+			add(preloadidk);
+		}
+		
 
 		if (!PlayStateChangeables.Optimize)
 		{
@@ -765,7 +783,7 @@ class PlayState extends MusicBeatState
 						defaultCamZoom = 0.7;
 						curStage = 'baseplate';
 
-						var images = []; // character wont lag while changing dad
+					/*	var images = []; // character wont lag while changing dad
 						var xml = [];
 						trace("caching images...");
 			
@@ -791,7 +809,18 @@ class PlayState extends MusicBeatState
 							var replaced = i.replace(".xml","");
 							FlxG.bitmap.add(Paths.image("characters/" + replaced,"shared"));
 							trace("cached " + replaced);
-						}
+						}*/
+
+						var dad1 = new Character(100, 100, SONG.player2);
+						var dad1 = new Character(100, 100, SONG.player1);
+						var dad1 = new Character(100, 100, 'brick');
+						var dad1 = new Character(100, 100, 'madbrick');
+						var dad1 = new Character(100, 100, 'him');
+						var dad1 = new Character(100, 100, 'himdrip');
+						var dad1 = new Character(100, 100, 'flyhimdrip');
+						var dad1 = new Character(100, 100, 'milkyway');
+						var dad1 = new Character(100, 100, 'gf');
+						var dad1 = new Character(100, 100, 'bf');
 
 						amogla = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/sky'));
 						amogla.setGraphicSize(Std.int(amogla.width * 1.5));
@@ -1267,6 +1296,45 @@ class PlayState extends MusicBeatState
 		if (loadRep)
 			replayTxt.cameras = [camHUD];
 
+		#if mobileC
+			mcontrols = new Mobilecontrols();
+			switch (mcontrols.mode)
+			{
+				case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+					controls.setVirtualPad(mcontrols._virtualPad, FULL, NONE);
+				case HITBOX:
+					controls.setHitBox(mcontrols._hitbox);
+				default:
+			}
+			trackedinputs = controls.trackedinputs;
+			controls.trackedinputs = [];
+
+			var camcontrol = new FlxCamera();
+			FlxG.cameras.add(camcontrol);
+			camcontrol.bgColor.alpha = 0;
+			mcontrols.cameras = [camcontrol];
+
+			mcontrols.visible = false;
+
+			add(mcontrols);
+
+			if (SONG.song.toLowerCase() == "him" || SONG.song.toLowerCase() == 'dripping') 
+				{
+					_pad = new FlxVirtualPad(NONE, A);
+					_pad.alpha = 0.75;
+					_pad.visible = false;
+					_pad.cameras = [camcontrol];
+					add(_pad);
+				}
+		#end
+
+		var creditText:FlxText = new FlxText(876, 648, 348);
+        creditText.text = 'PORTED BY\nNong Vanila';
+        creditText.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+		creditText.cameras = [camHUD];
+        creditText.scrollFactor.set();
+        add(creditText);
+
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -1428,6 +1496,14 @@ class PlayState extends MusicBeatState
 
 	function startCountdown():Void
 	{
+		#if mobileC
+		mcontrols.visible = true;
+		if (SONG.song.toLowerCase() == "him" || SONG.song.toLowerCase() == 'dripping')
+			{
+				_pad.visible = true;
+			}
+		#end
+
 		inCutscene = false;
 
 		generateStaticArrows(0);
@@ -2157,7 +2233,7 @@ class PlayState extends MusicBeatState
 
 		if (SONG.song.toLowerCase() == 'him')
 			{
-				if (FlxG.keys.justPressed.SPACE)
+				if (FlxG.keys.justPressed.SPACE#if mobileC || _pad.buttonA.justPressed #end)
 					{
 						dodgeMechanic = true;
 						boyfriend.playAnim('dodge', true); 
@@ -2166,7 +2242,7 @@ class PlayState extends MusicBeatState
 
 		if (SONG.song.toLowerCase() == 'dripping')
 			{
-				if (FlxG.keys.justPressed.SPACE)
+				if (FlxG.keys.justPressed.SPACE#if mobileC || _pad.buttonA.justPressed #end)
 					{
 						boyfriend.playAnim('dodge', true); 
 					}		
@@ -2224,7 +2300,7 @@ class PlayState extends MusicBeatState
 		//scoreTxt.x = (originalX - (lengthInPx / 2)) + 335;
 		scoreTxt.screenCenter(X);
 
-		if (controls.PAUSE && startedCountdown && canPause)
+		if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
 			persistentDraw = true;
@@ -2940,6 +3016,14 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
+		#if mobileC
+		mcontrols.visible = false;
+		if (SONG.song.toLowerCase() == "him" || SONG.song.toLowerCase() == 'dripping')
+			{
+				_pad.visible = false;
+			}
+		#end
+
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN,handleInput);
 		if (useVideo)
 			{
@@ -2951,15 +3035,6 @@ class PlayState extends MusicBeatState
 
 		if (isStoryMode)
 			campaignMisses = misses;
-
-		if (!loadRep)
-			rep.SaveReplay(saveNotes, saveJudge, replayAna);
-		else
-		{
-			PlayStateChangeables.botPlay = false;
-			PlayStateChangeables.scrollSpeed = 1;
-			PlayStateChangeables.useDownscroll = false;
-		}
 
 		if (FlxG.save.data.fpsCap > 290)
 			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
@@ -3038,7 +3113,6 @@ class PlayState extends MusicBeatState
 
 					if (SONG.validScore)
 					{
-						NGio.unlockMedal(60961);
 						Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
 					}
 
@@ -3075,25 +3149,18 @@ class PlayState extends MusicBeatState
 					FlxTransitionableState.skipNextTransOut = true;
 					prevCamFollow = camFollow;
 
-					var video:MP4Handler = new MP4Handler();
+					//var video:MP4Handler = new MP4Handler();
 
 					if (SONG.song.toLowerCase() == 'spin-it-again')
 						{
-							video.playMP4(Paths.video('thefunny'));
-							video.finishCallback = function()
-							{
-								LoadingState.loadAndSwitchState(new PlayState());
-							}
+							FlxG.switchState(new VideoState2('assets/videos/thefunny.webm', function()
+								{
+									LoadingState.loadAndSwitchState(new PlayState());
+								}));
 						}
-						
-					
-					if (SONG.song.toLowerCase() == 'brick') // made it to avoid crashing. DO NOT DELETE!
+					else
 						{
-							video.playMP4(Paths.video('yourcutscene'));
-							video.finishCallback = function()
-							{
-								LoadingState.loadAndSwitchState(new PlayState());
-							}
+							LoadingState.loadAndSwitchState(new PlayState());
 						}
 
 					PlayState.SONG = Song.loadFromJson(poop, PlayState.storyPlaylist[0]);
@@ -3203,7 +3270,7 @@ class PlayState extends MusicBeatState
 						if (daNote.noteType == 2)
 							{
 								FlxG.openURL("https://www.roblox.com/games/6718419917?privateServerLinkCode=53105805595866572860462522253260");
-								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
+								//Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
 								Sys.exit(0);
 							}
 						if (daNote.noteType == 1 || daNote.noteType == 0)
@@ -3221,7 +3288,7 @@ class PlayState extends MusicBeatState
 						if (daNote.noteType == 2)
 							{
 								FlxG.openURL("https://www.roblox.com/games/6447798030?privateServerLinkCode=52928167578844602629591614858072"); //opens roblos game
-								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")'); //opens a window that tells you to get good
+								//Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")'); //opens a window that tells you to get good
 								Sys.exit(0); //fuck you!!!! 
 							}
 						if (daNote.noteType == 1 || daNote.noteType == 0)
@@ -3238,7 +3305,7 @@ class PlayState extends MusicBeatState
 						if (daNote.noteType == 2)
 							{
 								FlxG.openURL("https://www.roblox.com/games/95206881/Baseplate#!/about");
-								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
+								//Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
 								Sys.exit(0);
 							}
 						if (daNote.noteType == 1 || daNote.noteType == 0)
@@ -3256,7 +3323,7 @@ class PlayState extends MusicBeatState
 						if (daNote.noteType == 2)
 							{
 								FlxG.openURL("https://www.roblox.com/games/6414348811?privateServerLinkCode=25971821901246180708944232916516");
-								Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
+								//Sys.command('mshta vbscript:Execute("msgbox ""get good kid L"":close")');
 								Sys.exit(0);
 							}
 						if (daNote.noteType == 1 || daNote.noteType == 0)
@@ -3585,8 +3652,8 @@ class PlayState extends MusicBeatState
 					});
 				}
 		 
-				if (KeyBinds.gamepad && !FlxG.keys.justPressed.ANY)
-				{
+				//if (KeyBinds.gamepad && !FlxG.keys.justPressed.ANY)
+				//{
 					// PRESSES, check for note hits
 					if (pressArray.contains(true) && generatedMusic)
 					{
@@ -3676,7 +3743,7 @@ class PlayState extends MusicBeatState
 						for (i in anas)
 							if (i != null)
 								replayAna.anaArray.push(i); // put em all there
-				}
+				//}
 				notes.forEachAlive(function(daNote:Note)
 				{
 					if(PlayStateChangeables.useDownscroll && daNote.y > strumLine.y ||
@@ -4554,6 +4621,13 @@ class PlayState extends MusicBeatState
 				lightningStrikeShit();
 			}
 		}
+	}
+	public function preload(graphic:String, lib:String) //preload assets
+	{
+		var newthing:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image(graphic, lib));
+		newthing.visible = false;
+		add(newthing);
+		remove(newthing);
 	}
 
 	var curLight:Int = 0;
