@@ -3442,7 +3442,7 @@
 		],
 		"player3": "gf",
 		"song": "milkyways",
-		"stage": "baseplate",
+		"stage": "baseplatereal",
 		"needsVoices": true,
 		"validScore": true,
 		"speed": 3.5,

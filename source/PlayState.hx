@@ -743,6 +743,23 @@ class PlayState extends MusicBeatState
 								add(waveSpriteFG);
 						*/
 			}
+		    case 'baseplatereal':
+				defaultCamZoom = 0.7;
+				curStage = 'baseplatereal';
+
+				amogla = new FlxSprite(-200, -200).loadGraphic(Paths.image('brick/sky'));
+				amogla.setGraphicSize(Std.int(amogla.width * 1.5));
+				amogla.antialiasing = true;
+				amogla.scrollFactor.set(0.9, 0.9);
+				amogla.active = false;
+				add(amogla);					
+				
+				ground = new FlxSprite(-240, 700).loadGraphic(Paths.image('brick/ground'));
+				ground.setGraphicSize(Std.int(ground.width * 1.5));
+				ground.antialiasing = true;
+				ground.scrollFactor.set(1, 1);
+				ground.active = false; 
+				add(ground);
 			case 'baseplate': // hi kromersen // hi ekical
 				{
 						defaultCamZoom = 0.7;
@@ -996,15 +1013,14 @@ class PlayState extends MusicBeatState
 				dad.y -= 176.75;
 			case 'madbrick':
 				dad.x -= 733.4;
-				dad.y -= 180;
-				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y + 10);
+				dad.y -= 176.75;
 			case 'him':
 				dad.x -= 370;
 				dad.y -= 30;
 			case 'himdrip':
 				dad.x -= 700;
-				dad.y = 1;
-				camPos.set(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y + 10);
+				dad.y = 40;
+				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y - 100);
 		}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -4187,46 +4203,43 @@ class PlayState extends MusicBeatState
 			trace("recent dad y", dad.y);
 		}
 
-		function chillouthimdontpulloutthenine()
+	function chillouthimdontpulloutthenine()
+	{
+		trace('chill out him dont pull out the nine');
+		new FlxTimer().start(2.5, function(tmr:FlxTimer)
 			{
-				trace('chill out him dont pull out the nine');
-				new FlxTimer().start(2.5, function(tmr:FlxTimer)
-					{
-						warningText.visible = true;
-					});
-				new FlxTimer().start(2.98, function(tmr:FlxTimer)
-					{
-						warningText.visible = false;
-					});
-				new FlxTimer().start(3, function(tmr:FlxTimer)
-					{
-						dad.playAnim('Shoot', true);
-						trace('holy shit he pulled out the nine');
-					});
-				new FlxTimer().start(3, function(tmr:FlxTimer) {
-					if (dodgeMechanic == true)
-						{
-						health += 0.15;
-						trace('how did you dodge that?');
-						}
-					});
-				new FlxTimer().start(3, function(tmr:FlxTimer) {
+				warningText.visible = true;
+			});
+		new FlxTimer().start(2.98, function(tmr:FlxTimer)
+			{
+				warningText.visible = false;
+			});
+		new FlxTimer().start(3, function(tmr:FlxTimer)
+			{
+				dad.playAnim('Shoot', true);
+				trace('holy shit he pulled out the nine');
+			});
+		new FlxTimer().start(3, function(tmr:FlxTimer) {
+			if (dodgeMechanic == true)
+				{
+				health += 0.15;
+				trace('chad');
+				}
+			});
+		new FlxTimer().start(3, function(tmr:FlxTimer) {
+			if (dodgeMechanic == false)
+				{
+				trace('loser');
+				}
+				new FlxTimer().start(0.2, function(tmr:FlxTimer) {
 					if (dodgeMechanic == false)
 						{
-						trace('man youre dead');
+						health = 0;
+						trace('loser');
 						}
-						new FlxTimer().start(0.2, function(tmr:FlxTimer) {
-							if (dodgeMechanic == false)
-								{
-								health = 0;
-								trace('man youre dead');
-								}
-							});
 					});
-				new FlxTimer().start(3.1, function(tmr:FlxTimer) {
-					dodgeMechanic = false;
-				});
-			}
+			});
+	}
 
 	override function stepHit()
 	{
@@ -4304,31 +4317,12 @@ class PlayState extends MusicBeatState
                     {
                         case 15:
 							chillouthimdontpulloutthenine();
-						case 320:
-							chillouthimdontpulloutthenine();
 						case 377:
 							defaultCamZoom = 0.82;
 						case 380:
 							defaultCamZoom = 1;
-							chillouthimdontpulloutthenine();
 						case 384:
 							defaultCamZoom = 0.7;
-						case 784:
-							chillouthimdontpulloutthenine();
-						case 992:
-							chillouthimdontpulloutthenine();
-						case 1328:
-							chillouthimdontpulloutthenine();
-						case 1472:
-							chillouthimdontpulloutthenine();
-						case 1728:
-							chillouthimdontpulloutthenine();
-						case 2016:
-							chillouthimdontpulloutthenine();
-						case 2020:
-							chillouthimdontpulloutthenine();
-						case 2200:
-							chillouthimdontpulloutthenine();
                     }
                 }
 
@@ -4337,7 +4331,7 @@ class PlayState extends MusicBeatState
 					switch (curStep)
 					{
 						case 256:							
-							FlxG.camera.flash(FlxColor.WHITE, 2); //sfoth
+							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
 							defaultCamZoom = 0.685;
 							amogla.visible = false;
 							ground.visible = false;
@@ -4347,18 +4341,17 @@ class PlayState extends MusicBeatState
 							boyfriend.y += 300;
 							gf.y += 315;
 						case 635:
-							FlxG.camera.flash(FlxColor.WHITE, 5); //baseplate
+							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
 							defaultCamZoom = 0.7;
 							sky.visible = false;
 							groundy.visible = false;
 							amoglas.alpha = 1;
 							grounde.alpha = 1;
 							changeDad('himdrip');
-							boyfriend.y -= 300;
-							gf.y -= 315;
-							dad.y = 1;
+							boyfriend.y -= 250;
+							gf.y -= 265;
 						case 767:
-							FlxG.camera.flash(FlxColor.WHITE, 2); //sfoth
+							FlxG.camera.flash(FlxColor.WHITE, 1.5); //sfoth
 							defaultCamZoom = 0.685;
 							amoglas.visible = false;
 							grounde.visible = false;
@@ -4368,7 +4361,7 @@ class PlayState extends MusicBeatState
 							boyfriend.y += 300;
 							gf.y += 315;
 						case 1152:
-							FlxG.camera.flash(FlxColor.WHITE, 5); //baseplate
+							FlxG.camera.flash(FlxColor.WHITE, 1.5); //baseplate
 							defaultCamZoom = 0.7;
 							amogloo.visible = false;
 							groundye.visible = false;
@@ -4377,7 +4370,6 @@ class PlayState extends MusicBeatState
 							changeDad('himdrip');
 							boyfriend.y -= 300;
 							gf.y -= 315;
-							dad.y = 1;
 						case 1296:
 							FlxTween.tween(camHUD, {alpha: 0}, 3, {ease: FlxEase.quadInOut});
 						case 1445:

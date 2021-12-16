@@ -4953,7 +4953,7 @@
 		"player2": "brick",
 		"player3": "gf",
 		"song": "brick",
-		"stage": "baseplate",
+		"stage": "baseplatereal",
 		"needsVoices": true,
 		"validScore": true,
 		"bpm": 180,
